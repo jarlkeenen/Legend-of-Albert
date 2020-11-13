@@ -12,40 +12,37 @@ import javax.swing.*;
 
 public class Window extends Canvas {
 
-    JFrame frame;
+    JFrame window;
+    JPanel background;
+    JLabel backimage;
     Container con;
+    ImageIcon image;
 
     // Main menu screen is created when starting the application
     public void mainMenu(int width, int height, String title, Game game) {
-        frame = new JFrame(title);
+        window = new JFrame(title);
+        window.setTitle(title);
+        window.setSize(width,height);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.getContentPane().setBackground(Color.blue);
+        window.setLayout(null);
+        window.add(game);
+        con = window.getContentPane();
 
-        frame.setPreferredSize(new Dimension(width, height));
-        frame.setMaximumSize(new Dimension(width, height));
-        frame.setMinimumSize(new Dimension(width, height));
+        background = new JPanel();
+        background.setBounds(0, 0, width, height);
+        con.add(background);
 
+        image = new ImageIcon(".//src//images//TitleScreenImage.png");
+        Image backimg = image.getImage();
+        Image modifiedbackimg = backimg.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+        image = new ImageIcon(modifiedbackimg);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.add(game);
+        backimage = new JLabel();
+        backimage.setIcon(image);
+        background.add(backimage);
 
-        // edit lang ang design please, gin butangan ko na bali contents (indi ko ni kabalo so kamo bahala sa akon hahahah)
-        JLabel titleText = new JLabel("Legend of Albert");
-        JPanel background = new JPanel();
-        background.setBounds(WIDTH/2, 100, WIDTH, 100);
-        background.add(titleText);
-        frame.add(background);
-
-        JButton startButton = new JButton("START");
-        background.setLocation(WIDTH/2, 500);
-        startButton.setFocusPainted(false);
-        startButton.addActionListener(evt -> createGameScreen());
-        JPanel startButtonPanel = new JPanel();
-        startButtonPanel.add(startButton);
-        frame.add(startButtonPanel);
-
-        frame.setVisible(true);
-        // game.startGame();
+        window.setVisible(true);
     }
 
     public void createGameScreen() {
