@@ -23,13 +23,15 @@ public class Window extends Canvas {
     // Main menu screen is created when starting the application
     public void mainMenu(int width, int height, String title, Game game) {
         window = new JFrame(title);
+        window.pack();
         window.setTitle(title);
         window.setSize(width,height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().setBackground(Color.blue);
+        window.getContentPane().setBackground(Color.black);
+        window.setLocationRelativeTo(null);
+        window.setResizable(false);
         window.setLayout(null);
         window.add(game);
-        window.setResizable(false);
         con = window.getContentPane();
 
         background = new JPanel(new BorderLayout());
@@ -37,6 +39,8 @@ public class Window extends Canvas {
         con.add(background);
 
         image = new ImageIcon(".//src//images//titleback.png");
+        System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
+        System.out.println(con.getWidth() + "  " + con.getHeight());
         //Image backimg = image.getImage();
         //Image modifiedbackimg = backimg.getScaledInstance(width,height, Image.SCALE_SMOOTH);
         //image = new ImageIcon(modifiedbackimg);
