@@ -3,8 +3,6 @@
 
 *Object-Oriented Programming* Midterm Exam Project
 
-
-
 ### Members:
 - Karr Balbin
 - Kean Canaria
