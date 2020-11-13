@@ -1,4 +1,4 @@
-package com.company;
+package com.group4;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

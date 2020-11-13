@@ -1,4 +1,4 @@
-package com.company;
+package com.group4;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
