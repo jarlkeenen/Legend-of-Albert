@@ -1,5 +1,9 @@
 package com.group4;
 
+/*
+FILE IS NOT YET FINISHED. DO NOT TOUCH.
+ */
+
 public class SaveFile {
 
     // Path of the directory containing all character save files
