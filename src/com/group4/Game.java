@@ -8,7 +8,7 @@ import java.util.Random;
 public class Game extends Canvas{
 
     // Game resolution
-    public static final int WIDTH = 1280, HEIGHT = 720;
+    public static final int WIDTH = 1286, HEIGHT = 749;
 
     Window myGame;
 
