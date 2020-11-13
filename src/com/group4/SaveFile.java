@@ -7,6 +7,7 @@ public class SaveFile {
 
     // Progress Trackers
     private int saveNum;
+    private boolean isTutorialCompleted;
 
     // Basic Stats
     private String playerName;
@@ -23,6 +24,7 @@ public class SaveFile {
     private boolean legArmor;
     private boolean legPants;
     private int lolaRemedios;
+    private int templeKey;
 
     // Experience
     private int playerLevel;
@@ -115,6 +117,14 @@ public class SaveFile {
 
     public void setLolaRemedios(int lolaRemedios) {
         this.lolaRemedios = lolaRemedios;
+    }
+
+    public int getTempleKey() {
+        return templeKey;
+    }
+
+    public void setTempleKey(int templeKey) {
+        this.templeKey = templeKey;
     }
 
     public int getPlayerLevel() {
