@@ -5,7 +5,7 @@ public class SaveFile {
     // Path of the directory containing all character save files
     public String playersFolderPath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\Legend of Albert\\Saves";
 
-    // Progress Trackers
+    // Progress Trackers (NOT COMPLETE)
     private int saveNum;
     private boolean isTutorialCompleted;
 

@@ -71,7 +71,7 @@ public class Screen  {
         exchangebuttonpanel.add(exhangebutton);
 
         icon=new JLabel();
-        icon.setIcon(new ImageIcon("resources/Background.png"));
+        icon.setIcon(new ImageIcon("resources/images/Title.png"));
         iconpanel.add(icon);
 
         //implements to the window
@@ -85,7 +85,7 @@ public class Screen  {
 
     public void Shop (){
         startbuttonpanel.setVisible(false);
-        icon.setIcon(new ImageIcon("resources/Shop.png"));
+        icon.setIcon(new ImageIcon("resources/images/Shop.png"));
 
         textpanel=new JPanel();
         textpanel.setBounds(100,600,1200,200);
@@ -123,7 +123,7 @@ public class Screen  {
                 i++;
                 soundcue++;
                 if(soundcue==2){
-                String soundeffect=".//resources//type.wav";
+                String soundeffect=".//resources//audio//type.wav";
                 se.setURL(soundeffect);
                 se.play();
                 soundcue=0;}

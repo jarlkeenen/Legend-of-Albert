@@ -13,60 +13,60 @@ import javax.swing.*;
 public class Window extends Canvas {
 
     JFrame window;
-    JPanel background,startButtonPanel;
-    JLabel backimage;
-    JButton startButton;
     Container con;
-    ImageIcon image;
+    Dimension conSize;
+    JPanel background,startButtonPanel;
+    JLabel backImage;
+    JButton startButton;
+    ImageIcon title;
     Font normalFont = new Font("Arial",Font.PLAIN, 25);
 
-    // Main menu screen is created when starting the application
-    public void mainMenu(int width, int height, String title, Game game) {
+    public Window(int width, int height, String title) {
         window = new JFrame(title);
         window.pack();
         window.setTitle(title);
-        window.setSize(width,height);
+        window.setSize(width, height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.black);
         window.setLocationRelativeTo(null);
         window.setResizable(false);
         window.setLayout(null);
-        window.add(game);
         con = window.getContentPane();
+        conSize = new Dimension(con.getWidth(), con.getHeight());
+        titleScreen();
+    }
 
-        background = new JPanel(new BorderLayout());
-        background.setSize(1280,720);
-        con.add(background);
-
-        image = new ImageIcon(".//src//images//titleback.png");
+    // Main menu screen is created when starting the application
+    public void titleScreen() {
+        title = new ImageIcon(".//resources//images//Title.png");
+        /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
         System.out.println(con.getWidth() + "  " + con.getHeight());
-        //Image backimg = image.getImage();
-        //Image modifiedbackimg = backimg.getScaledInstance(width,height, Image.SCALE_SMOOTH);
-        //image = new ImageIcon(modifiedbackimg);
+        */
+        backImage = new JLabel(title);
 
+        background = new JPanel(new BorderLayout());
+        background.setSize(conSize);
+        background.add(backImage);
+        con.add(background);
 
-        backimage = new JLabel();
-        backimage.setIcon(image);
-        background.add(backimage);
+        startButton = new JButton("PLAYS");
+        startButton.setForeground(Color.white);
+        startButton.setFont(normalFont);
+        startButton.addActionListener(evt -> mainMenu());
+        startButton.setOpaque(false);
 
         startButtonPanel = new JPanel();
         startButtonPanel.setBounds(520,635,300,150);
         startButtonPanel.setBackground(Color.blue);
         startButtonPanel.setOpaque(false);
-
-        startButton = new JButton("PLAYS");
-        startButton.setForeground(Color.white);
-        startButton.setFont(normalFont);
-        startButton.addActionListener(evt -> createGameScreen());
-        startButton.setOpaque(false);
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
 
         window.setVisible(true);
     }
 
-    public void createGameScreen() {
+    public void mainMenu() {
         System.out.println("button test worked");
     }
 
