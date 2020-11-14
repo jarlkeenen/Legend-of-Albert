@@ -2,6 +2,8 @@ package com.group4;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.util.Random;
@@ -20,10 +22,10 @@ public class Game extends Canvas{
         savesFolder.mkdirs();
 
         myGame = new Window(WIDTH, HEIGHT, "Legend of Albert");
-
     }
 
     public static void main(String[] args) {
         new Game();
     }
+
 }
