@@ -17,8 +17,7 @@ public class Game extends Canvas{
     // Runs once at the start of the application
     public Game() {
 
-        myGame = new Window();
-        myGame.mainMenu(WIDTH, HEIGHT, "Legend of Albert", this);
+        myGame = new Window(WIDTH, HEIGHT, "Legend of Albert");
 
     }
 

@@ -39,22 +39,21 @@ public class Window extends Canvas {
     String TM,sfx;
     Music mu = new Music();
 
-    // Main menu screen is created when starting the application
-    public void mainMenu(int width, int height, String title, Game game) {
+    public Window(int width, int height, String title) {
         window = new JFrame(title);
-        window.setTitle(title);
+        window.pack();
         window.setSize(width,height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.blue);
-        window.setLayout(null);
-        window.add(game);
+        window.setLocationRelativeTo(null);
         window.setResizable(false);
+        window.setLayout(null);
         con = window.getContentPane();
         conSize = new Dimension(con.getWidth(), con.getHeight());
         titleScreen();
     }
 
-    // Main menu screen is created when starting the application
+    // Title Screen is created when starting the application
     public void titleScreen() {
         position = "no";
         TM = ".//resources//audio//opening music.wav";
@@ -71,19 +70,20 @@ public class Window extends Canvas {
         backImage = new JLabel(title);
 
         background = new JPanel(new BorderLayout());
-        background.setSize(1280,720);
+        background.setSize(conSize);
+        background.add(backImage);
         con.add(background);
-
-        startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(520,635,300,150);
-        startButtonPanel.setBackground(Color.blue);
-        startButtonPanel.setOpaque(false);
 
         startButton = new JButton("PLAYS");
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
         startButton.addActionListener(evt -> createGameScreen());
         startButton.setOpaque(false);
+
+        startButtonPanel = new JPanel();
+        startButtonPanel.setBounds(520,635,300,150);
+        startButtonPanel.setBackground(Color.blue);
+        startButtonPanel.setOpaque(false);
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
 
