@@ -10,7 +10,7 @@ https://jamboard.google.com/d/11rpBFbNEflwFLYJTfTqjNsvZLor4wbASEbyUtxpGnWU/edit?
 public class SaveFile {
 
     // Path of the directory containing all character save files
-    public String playersFolderPath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\Legend of Albert\\Saves";
+    public String saveFilesPath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\Legend of Albert\\Saves";
 
     /*
     Progress Trackers (NOT COMPLETE)
@@ -18,10 +18,15 @@ public class SaveFile {
     Due to this system, if a player closes the game in the middle of a scene (e.g. a cutscene),
     they will be brought back to right after the previous tracker.
     */
-    private int saveNum;
-    private boolean isTutorialCompleted;
+    protected int saveNum;
+    protected boolean isCombatTutorialCompleted; // true = page 9, false = page 7
+    protected boolean isTownHubTutorialCompleted; // true = page 13, false = page 9
+    protected boolean isCutscene2TutorialCompleted; // true = page 17, false = page 9 (but you can leave immediately)
+    protected boolean isTheRuinsCompleted;
+    protected boolean isDSBForestCompleted;
+    protected boolean isCadizShoreCompleted;
 
-    // Basic Stats
+    // Personal Info
     private String playerName;
     private String playerRace;
 
@@ -163,4 +168,8 @@ public class SaveFile {
         this.playerXP = playerXP;
     }
 
+}
+
+interface Save {
+    void writeToPlayerFile(int saveNum);
 }
