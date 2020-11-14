@@ -17,9 +17,13 @@ public class Game extends Canvas{
     // Runs once at the start of the application
     public Game() {
 
+<<<<<<< Updated upstream
         myGame = new Window();
         myGame.mainMenu(WIDTH, HEIGHT, "Legend of Albert", this);
 
+=======
+        myGame = new Window(WIDTH, HEIGHT, "Legend of Albert");
+>>>>>>> Stashed changes
     }
 
     /* ignore

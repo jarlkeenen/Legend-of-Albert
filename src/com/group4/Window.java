@@ -18,6 +18,13 @@ import javax.swing.*;
 public class Window extends Canvas {
 
     JFrame window;
+<<<<<<< Updated upstream
+    JPanel background,startButtonPanel;
+    JLabel backimage;
+    JButton startButton;
+    Container con;
+    ImageIcon image;
+=======
     Container con;
     Dimension conSize;
     JPanel background;
@@ -30,6 +37,7 @@ public class Window extends Canvas {
     JPanel startButtonPanel, Cpanel, NGpanel, Qpanel;
 
     //may font kay gina size nila ang buttons for some reason lol
+>>>>>>> Stashed changes
     Font normalFont = new Font("Arial",Font.PLAIN, 25);
     Font NGFont = new Font("Arial",Font.PLAIN, 15);
     Font QFont = new Font("Arial",Font.PLAIN, 20);
@@ -50,6 +58,8 @@ public class Window extends Canvas {
         window.add(game);
         window.setResizable(false);
         con = window.getContentPane();
+<<<<<<< Updated upstream
+=======
         conSize = new Dimension(con.getWidth(), con.getHeight());
         titleScreen();
     }
@@ -69,10 +79,31 @@ public class Window extends Canvas {
         System.out.println(con.getWidth() + "  " + con.getHeight());
         */
         backImage = new JLabel(title);
+>>>>>>> Stashed changes
 
         background = new JPanel(new BorderLayout());
         background.setSize(1280,720);
         con.add(background);
+
+<<<<<<< Updated upstream
+        image = new ImageIcon(".//src//images//titleback.png");
+        //Image backimg = image.getImage();
+        //Image modifiedbackimg = backimg.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+        //image = new ImageIcon(modifiedbackimg);
+
+
+        backimage = new JLabel();
+        backimage.setIcon(image);
+        background.add(backimage);
+=======
+
+        startButton = new JButton("PLAYS");
+        startButton.setForeground(Color.white);
+        startButton.setFont(normalFont);
+        startButton.addActionListener(evt -> mainMenu());
+        startButton.addActionListener(bHandler);
+        startButton.setOpaque(false);
+>>>>>>> Stashed changes
 
         startButtonPanel = new JPanel();
         startButtonPanel.setBounds(520,635,300,150);
