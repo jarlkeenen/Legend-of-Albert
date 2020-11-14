@@ -1,7 +1,10 @@
 package com.group4;
 
 /*
+PLEASE READ
 FILE IS NOT YET FINISHED. DO NOT TOUCH.
+COMMENTS ON PROGRESS TRACKERS ARE BASED ON THE LOA FINAL STORYBOARD:
+https://jamboard.google.com/d/11rpBFbNEflwFLYJTfTqjNsvZLor4wbASEbyUtxpGnWU/edit?usp=sharing
  */
 
 public class SaveFile {
@@ -9,7 +12,12 @@ public class SaveFile {
     // Path of the directory containing all character save files
     public String playersFolderPath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\Legend of Albert\\Saves";
 
-    // Progress Trackers (NOT COMPLETE)
+    /*
+    Progress Trackers (NOT COMPLETE)
+    Used for loading the player at the appropriate scene, level, progress, etc.
+    Due to this system, if a player closes the game in the middle of a scene (e.g. a cutscene),
+    they will be brought back to right after the previous tracker.
+    */
     private int saveNum;
     private boolean isTutorialCompleted;
 
