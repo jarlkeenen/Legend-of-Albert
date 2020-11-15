@@ -38,6 +38,10 @@ public class Window extends Canvas {
     //Music:
     String TM,sfx;
     Music mu = new Music();
+    SoundEffect se = new SoundEffect();
+
+    //possibly unnecessary variable but needed to fix glitch lol
+    int glitch = 0;
 
     public Window(int width, int height, String title) {
         window = new JFrame(title);
@@ -56,24 +60,29 @@ public class Window extends Canvas {
 
     // Main menu screen is created when starting the application
     public void titleScreen() {
+        if (glitch >= 1) {
+            backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
+        }
         position = "no";
         TM = ".//resources//audio//opening music.wav";
         
-            mu.setFile(TM);
-            mu.play();
-            mu.loop();
-			
-        title = new ImageIcon(".//resources//images//Title.png");
+        mu.setFile(TM);
+        mu.play();
+        mu.loop();
+
         /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
         System.out.println(con.getWidth() + "  " + con.getHeight());
         */
-        backImage = new JLabel(title);
+        if (glitch == 0) {
+            title = new ImageIcon(".//resources//images//Title.png");
+            backImage = new JLabel(title);
 
-        background = new JPanel(new BorderLayout());
-        background.setSize(conSize);
-        background.add(backImage);
-        con.add(background);
+            background = new JPanel(new BorderLayout());
+            background.setSize(conSize);
+            background.add(backImage);
+            con.add(background);
+        }
 
         startButton = new JButton("PLAYS");
         startButton.setForeground(Color.white);
@@ -88,11 +97,13 @@ public class Window extends Canvas {
         startButtonPanel.setOpaque(false);
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
+        startButton.setVisible(true);
 
         window.setVisible(true);
     }
 
     public void mainMenu() {
+        glitch = glitch + 1;
         System.out.println("button test worked");
         Menu1();
     }
@@ -161,10 +172,12 @@ public class Window extends Canvas {
     public void QuitMenu () {
         mu.stop();
         position = "QM";
+        //Cpanel.setVisible(false);
+        //NGpanel.setVisible(false);
+        //Qpanel.setVisible(false);
         Cbutton.setVisible(false);
         NGbutton.setVisible(false);
         Qbutton.setVisible(false);
-        backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
         titleScreen();
     }
 
@@ -203,11 +216,46 @@ public class Window extends Canvas {
         }
     }
 
+    public class SoundEffect{
+        Clip clip;
+
+        public void setFile(String soundFileName){
+
+            try{
+                File file = new File(soundFileName);
+                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-10.0f);
+            }
+            catch(Exception e){
+
+            }
+        }
+
+        public void play(){
+            clip.setFramePosition(0);
+            clip.start();
+        }
+
+        public void loop(){
+
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        }
+
+        public void stop(){
+            clip.stop();
+            clip.close();
+        }
+    }
+
     public class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             sfx = ".//resources//audio//click sound2 (1).wav";
-            mu.setFile(sfx);
-            mu.play();
+            se.setFile(sfx);
+            se.play();
 
             String yourChoice = event.getActionCommand();
 
