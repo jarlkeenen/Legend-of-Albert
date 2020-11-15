@@ -26,19 +26,31 @@ public class Window extends Canvas {
     String position, music = "yes";
 
     //Button:
-    JButton startButton, Cbutton, NGbutton, Qbutton;
-    JPanel startButtonPanel, Cpanel, NGpanel, Qpanel;
+    JButton startButton, Cbutton, NGbutton, Qbutton, slot1b, slot2b, slot3b, Pescb, Omecb, Somb, Createb;
+    JPanel startButtonPanel, Cpanel, NGpanel, Qpanel, slot1p, slot2p, slot3p, Pescp, Omecp, Somp, Createp;
 
     //may font kay gina size nila ang buttons for some reason lol
     Font normalFont = new Font("Arial",Font.PLAIN, 25);
     Font NGFont = new Font("Arial",Font.PLAIN, 15);
     Font QFont = new Font("Arial",Font.PLAIN, 20);
+    Font slotFont = new Font("Arial",Font.PLAIN, 77);
+    Font raceFont = new Font("Arial",Font.PLAIN, 18);
     ButtonHandler bHandler = new ButtonHandler();
+
+    //for player
+    String pname, prace;
+    int playnum, phealth, pattack, pdefense;
 
     //Music:
     String TM,sfx;
     Music mu = new Music();
     SoundEffect se = new SoundEffect();
+<<<<<<< Updated upstream
+=======
+
+    boolean racechange = false;
+
+>>>>>>> Stashed changes
 
     //possibly unnecessary variable but needed to fix glitch lol
     int glitch = 0;
@@ -65,7 +77,11 @@ public class Window extends Canvas {
         }
         position = "no";
         TM = ".//resources//audio//opening music.wav";
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         mu.setFile(TM);
         mu.play();
         mu.loop();
@@ -159,6 +175,42 @@ public class Window extends Canvas {
         NGbutton.setVisible(false);
         Qbutton.setVisible(false);
         backImage.setIcon(new ImageIcon(".//resources//images//MenuC.png"));
+
+        slot1b = new JButton("            s            ");
+        slot1b.setForeground(Color.white);
+        slot1b.setFont(slotFont);
+        slot1b.addActionListener(bHandler);
+        slot1b.setOpaque(false);
+        slot1p = new JPanel();
+        slot1p.setBounds(242,210,800,770);
+        slot1p.setBackground(Color.blue);
+        slot1p.setOpaque(false);
+        slot1p.add(slot1b);
+        con.add(slot1p);
+
+        slot2b = new JButton("            s            ");
+        slot2b.setForeground(Color.white);
+        slot2b.setFont(slotFont);
+        slot2b.addActionListener(bHandler);
+        slot2b.setOpaque(false);
+        slot2p = new JPanel();
+        slot2p.setBounds(242,330,800,770);
+        slot2p.setBackground(Color.blue);
+        slot2p.setOpaque(false);
+        slot2p.add(slot2b);
+        con.add(slot2p);
+
+        slot3b = new JButton("            s            ");
+        slot3b.setForeground(Color.white);
+        slot3b.setFont(slotFont);
+        slot3b.addActionListener(bHandler);
+        slot3b.setOpaque(false);
+        slot3p = new JPanel();
+        slot3p.setBounds(242,460,800,770);
+        slot3p.setBackground(Color.blue);
+        slot3p.setOpaque(false);
+        slot3p.add(slot3b);
+        con.add(slot3p);
     }
 
     public void NwgMenu () {
@@ -167,6 +219,45 @@ public class Window extends Canvas {
         NGbutton.setVisible(false);
         Qbutton.setVisible(false);
         backImage.setIcon(new ImageIcon(".//resources//images//MenuNG.png"));
+
+        slot1b = new JButton("            s            ");
+        slot1b.setForeground(Color.white);
+        slot1b.setFont(slotFont);
+        slot1b.addActionListener(bHandler);
+        slot1b.setActionCommand("Player1");
+        slot1b.setOpaque(false);
+        slot1p = new JPanel();
+        slot1p.setBounds(242,210,800,770);
+        slot1p.setBackground(Color.blue);
+        slot1p.setOpaque(false);
+        slot1p.add(slot1b);
+        con.add(slot1p);
+
+        slot2b = new JButton("            s            ");
+        slot2b.setForeground(Color.white);
+        slot2b.setFont(slotFont);
+        slot2b.addActionListener(bHandler);
+        slot2b.setActionCommand("Player2");
+        slot2b.setOpaque(false);
+        slot2p = new JPanel();
+        slot2p.setBounds(242,330,800,770);
+        slot2p.setBackground(Color.blue);
+        slot2p.setOpaque(false);
+        slot2p.add(slot2b);
+        con.add(slot2p);
+
+        slot3b = new JButton("            s            ");
+        slot3b.setForeground(Color.white);
+        slot3b.setFont(slotFont);
+        slot3b.addActionListener(bHandler);
+        slot3b.setActionCommand("Player3");
+        slot3b.setOpaque(false);
+        slot3p = new JPanel();
+        slot3p.setBounds(242,460,800,770);
+        slot3p.setBackground(Color.blue);
+        slot3p.setOpaque(false);
+        slot3p.add(slot3b);
+        con.add(slot3p);
     }
 
     public void QuitMenu () {
@@ -179,6 +270,68 @@ public class Window extends Canvas {
         NGbutton.setVisible(false);
         Qbutton.setVisible(false);
         titleScreen();
+    }
+
+    public void CreateChar () {
+        slot1b.setVisible(false);
+        slot2b.setVisible(false);
+        slot3b.setVisible(false);
+        if (!racechange) {
+            backImage.setIcon(new ImageIcon(".//resources//images//CreatePlayer.png"));
+        }
+        position = "CC";
+
+        Pescb = new JButton("Pescadorianssssssssssssss");
+        Pescb.setForeground(Color.white);
+        Pescb.setFont(raceFont);
+        Pescb.addActionListener(bHandler);
+        Pescb.setActionCommand("Pes");
+        Pescb.setOpaque(false);
+        Pescp = new JPanel();
+        Pescp.setBounds(-375,95,1250,150);
+        Pescp.setBackground(Color.blue);
+        Pescp.setOpaque(false);
+        Pescp.add(Pescb);
+        con.add(Pescp);
+
+        Somb = new JButton("Pescadorianssssssssss");
+        Somb.setForeground(Color.white);
+        Somb.setFont(raceFont);
+        Somb.addActionListener(bHandler);
+        Somb.setActionCommand("Som");
+        Somb.setOpaque(false);
+        Somp = new JPanel();
+        Somp.setBounds(-245,135,950,150);
+        Somp.setBackground(Color.blue);
+        Somp.setOpaque(false);
+        Somp.add(Somb);
+        con.add(Somp);
+
+        Omecb = new JButton("Pescadorianssssssssssss");
+        Omecb.setForeground(Color.white);
+        Omecb.setFont(raceFont);
+        Omecb.addActionListener(bHandler);
+        Omecb.setActionCommand("Ome");
+        Omecb.setOpaque(false);
+        Omecp = new JPanel();
+        Omecp.setBounds(-264,173,1000,150);
+        Omecp.setBackground(Color.blue);
+        Omecp.setOpaque(false);
+        Omecp.add(Omecb);
+        con.add(Omecp);
+
+        Createb = new JButton("PLAYSSSSSS");
+        Createb.setForeground(Color.white);
+        Createb.setFont(raceFont);
+        Createb.addActionListener(bHandler);
+        Createb.setActionCommand("Create");
+        Createb.setOpaque(false);
+        Createp = new JPanel();
+        Createp.setBounds(859,636,600,150);
+        Createp.setBackground(Color.blue);
+        Createp.setOpaque(false);
+        Createp.add(Createb);
+        con.add(Createp);
     }
 
     public class Music{
@@ -271,6 +424,50 @@ public class Window extends Canvas {
                                 break;
                             case "qb":
                                 QuitMenu();
+                                break;
+                        }
+                    case "NGM":
+                        switch (yourChoice) {
+                            case "Player1":
+                                playnum = 1;
+                                CreateChar();
+                                break;
+                            case "Player2":
+                                playnum = 2;
+                                CreateChar();
+                                break;
+                            case "Player3":
+                                playnum = 3;
+                                CreateChar();
+                                break;
+                        }
+                    case "CC":
+                        switch (yourChoice) {
+                            case "Pes":
+                                backImage.setIcon(new ImageIcon(".//resources//images//Pescadorian.png"));
+                                racechange = true;
+                                prace = "Pescadorian";
+                                phealth = 60;
+                                pattack = 10;
+                                pdefense = 10;
+                                break;
+                            case "Som":
+                                backImage.setIcon(new ImageIcon(".//resources//images//Somanian.png"));
+                                racechange = true;
+                                prace = "Somanian";
+                                phealth = 50;
+                                pattack = 20;
+                                pdefense = 10;
+                                break;
+                            case "Ome":
+                                backImage.setIcon(new ImageIcon(".//resources//images//Omecillian.png"));
+                                racechange = true;
+                                prace = "Omecillian";
+                                phealth = 50;
+                                pattack = 10;
+                                pdefense = 20;
+                                break;
+                            case "Create":
                                 break;
                         }
                 }
