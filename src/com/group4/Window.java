@@ -75,10 +75,6 @@ public class Window extends Canvas {
         position = "no";
         TM = ".//resources//audio//opening music.wav";
 
-        mu.setFile(TM);
-        mu.play();
-        mu.loop();
-
         if (!isTMPlaying) {
             mu.setFile(TM);
             mu.play();
