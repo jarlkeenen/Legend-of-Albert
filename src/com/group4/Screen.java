@@ -6,16 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.URL;
 
-
-public class Screen  {
+public class Screen extends  Canvas{
+    public static final int WIDTH = 1296, HEIGHT = 759;
     JFrame window;
     Container con;
-    JPanel startbuttonpanel,iconpanel,textpanel,exchangebuttonpanel;
+    JPanel startbuttonpanel,iconpanel,textpanel,exchangebuttonpanel,gotoplacepanel;
     JTextArea textArea;
     JLabel icon;
-    JButton startbutton,exhangebutton;
+    JButton startbutton,exhangebutton,exchangebutton2,homebutton,shopbutton,tavernbutton;
     Font font=new Font("Times New Roman",Font.CENTER_BASELINE,30);
     Font nfont=new Font("Times New Roman",Font.PLAIN,25);
     String text;
@@ -28,47 +27,34 @@ public class Screen  {
     public void StartScreen(TestRun.ActionHandler action){
         //initializes game screen panel
         window= new JFrame();
-        window.setSize(1280,800);
+        window.setSize(WIDTH,HEIGHT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.BLACK);
+        window.setLocationRelativeTo(null);
+        window.setResizable(false);
         window.setLayout(null);
         window.addMouseListener(mouse);
         con=window.getContentPane();
 
         //sets the start button
-        startbuttonpanel=new JPanel();
-        startbuttonpanel.setBounds(470,640,400,200);
-        startbuttonpanel.setBackground(new Color(0,0,0,0));
-        startbuttonpanel.setOpaque(false);
-
         startbutton=new JButton();
         startbutton.setPreferredSize(new Dimension(125,43));
-        startbutton.setBackground(new Color(0,0,0,0));
         startbutton.setOpaque(false);
         startbutton.setFocusPainted(false);
         startbutton.setContentAreaFilled(false);
         startbutton.addActionListener(action);
         startbutton.setActionCommand("start");
+
+        startbuttonpanel=new JPanel();
+        startbuttonpanel.setBounds(470,640,400,200);
+        startbuttonpanel.setBackground(Color.blue);
+        startbuttonpanel.setOpaque(false);
         startbuttonpanel.add(startbutton);
 
         //set background
         iconpanel=new JPanel();
         iconpanel.setBounds(1,1,1280,720);
         iconpanel.setBackground(new Color(0,0,0,0));
-
-        //exchange button
-        exchangebuttonpanel=new JPanel();
-        exchangebuttonpanel.setBounds(470,640,400,200);
-        exchangebuttonpanel.setBackground(Color.BLACK);
-
-        exhangebutton=new JButton("Exchange");
-        exhangebutton.setFont(font);
-        exhangebutton.setPreferredSize(new Dimension(200,43));
-        exhangebutton.setBackground(new Color(0,0,0,0));
-        exhangebutton.setForeground(Color.WHITE);
-        exhangebutton.setFocusPainted(false);
-        exhangebutton.setContentAreaFilled(false);
-        exchangebuttonpanel.add(exhangebutton);
 
         icon=new JLabel();
         icon.setIcon(new ImageIcon("resources/images/Title.png"));
@@ -77,18 +63,45 @@ public class Screen  {
         //implements to the window
         con.add(startbuttonpanel);
         con.add(iconpanel);
-        con.add(exchangebuttonpanel);
 
-        exchangebuttonpanel.setVisible(false);
         window.setVisible(true);
     }
 
-    public void Shop (){
+    public void Shop (TestRun.ActionHandler action){
         startbuttonpanel.setVisible(false);
+        exchangebuttonpanel=new JPanel();
+        exchangebuttonpanel.setBounds(500,640,250,50);
+        exchangebuttonpanel.setBackground(Color.BLACK);
+        exchangebuttonpanel.setLayout(new FlowLayout(1));
+
+        exhangebutton=new JButton("Yes");
+        exhangebutton.setFont(font);
+        exhangebutton.setPreferredSize(new Dimension(100,43));
+        exhangebutton.setBackground(new Color(0,0,0,0));
+        exhangebutton.setForeground(Color.WHITE);
+        exhangebutton.setFocusPainted(false);
+        exhangebutton.setContentAreaFilled(false);
+        exhangebutton.addActionListener(action);
+        exhangebutton.setActionCommand("yesShop");
+
+        exchangebutton2=new JButton("No");
+        exchangebutton2.setFont(font);
+        exchangebutton2.setPreferredSize(new Dimension(100,43));
+        exchangebutton2.setBackground(new Color(0,0,0,0));
+        exchangebutton2.setForeground(Color.WHITE);
+        exchangebutton2.setFocusPainted(false);
+        exchangebutton2.setContentAreaFilled(false);
+        exchangebutton2.addActionListener(action);
+        exchangebutton2.setActionCommand("no");
+
+        exchangebuttonpanel.add(exhangebutton);
+        exchangebuttonpanel.add(exchangebutton2);
+
+        con.add(exchangebuttonpanel);
         icon.setIcon(new ImageIcon("resources/images/Shop.png"));
 
         textpanel=new JPanel();
-        textpanel.setBounds(100,600,1200,200);
+        textpanel.setBounds(100,580,1200,200);
         textpanel.setBackground(new Color(0,0,0,0));
         textpanel.setOpaque(false);
         con.add(textpanel);
@@ -102,14 +115,22 @@ public class Screen  {
         textArea.setWrapStyleWord(true);
         textpanel.add(textArea);
 
-
-        text="Hello pushov-I mean customer, Do you want to exhange a bit of your power for a [Panacea]?";
-        timer.start();
+        text="Do you want to exchange a bit of your power fo a [Lola Remedios]?";
+        prepareText();
         exchangebuttonpanel.setVisible(true);
         window.setVisible(true);
 
     }
-        Timer timer=new Timer(80, new ActionListener() {
+
+    public void town(){
+        startbuttonpanel.setVisible(false);
+        icon.setIcon(new ImageIcon(".//resources//images//Town.png"));
+    }
+
+    public void tavern(){
+        icon.setIcon(new ImageIcon(".//resources//images//Tavern.png"));
+    }
+        Timer textTimer=new Timer(80, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 char ch[]=text.toCharArray();
@@ -127,16 +148,16 @@ public class Screen  {
                 se.setURL(soundeffect);
                 se.play();
                 soundcue=0;}
-                if(i==ch.length){
+                if(i==arrnum){
                     i=0;
-                    timer.stop();
+                    textTimer.stop();
                 }
             }
         });
     public void prepareText(){
         i=0;
         textArea.setText("");
-        timer.start();
+        textTimer.start();
     }
     public class MouseHandler implements MouseListener{
 
@@ -147,10 +168,9 @@ public class Screen  {
 
         @Override
         public void mousePressed(MouseEvent e) {
-                timer.stop();
-                textArea.setText(text);
-                i=0;
+
         }
+
 
         @Override
         public void mouseReleased(MouseEvent e) {

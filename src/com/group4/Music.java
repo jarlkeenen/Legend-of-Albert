@@ -6,8 +6,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.io.File;
 
-public class SoundEffect {
-Clip clip;
+public class Music {
+    Clip clip;
     public void setURL(String soundFilename){
         try{
             File file=new File(soundFilename);
