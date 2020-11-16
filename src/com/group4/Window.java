@@ -45,12 +45,8 @@ public class Window extends Canvas {
     String TM,sfx;
     Music mu = new Music();
     SoundEffect se = new SoundEffect();
-<<<<<<< Updated upstream
-=======
 
     boolean racechange = false;
-
->>>>>>> Stashed changes
 
     //possibly unnecessary variable but needed to fix glitch lol
     int glitch = 0;
@@ -77,11 +73,7 @@ public class Window extends Canvas {
         }
         position = "no";
         TM = ".//resources//audio//opening music.wav";
-<<<<<<< Updated upstream
-        
-=======
 
->>>>>>> Stashed changes
         mu.setFile(TM);
         mu.play();
         mu.loop();
