@@ -14,16 +14,18 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
+import javax.swing.Timer;
 
 public class Window extends Canvas {
 
     JFrame window;
     Container con;
     Dimension conSize;
-    JPanel background;
+    JPanel background, inputPanel;
     JLabel backImage;
     ImageIcon title;
     String position, music = "yes";
+    JTextField inputF;
 
     //Button:
     JButton startButton, Cbutton, NGbutton, Qbutton, slot1b, slot2b, slot3b, Pescb, Omecb, Somb, Createb;
@@ -36,9 +38,10 @@ public class Window extends Canvas {
     Font slotFont = new Font("Arial",Font.PLAIN, 77);
     Font raceFont = new Font("Arial",Font.PLAIN, 18);
     ButtonHandler bHandler = new ButtonHandler();
+    InputHandler iHandler = new InputHandler();
 
     //for player
-    String pname, prace;
+    String pname = null, prace;
     int playnum, phealth, pattack, pdefense;
 
     //Music:
@@ -53,6 +56,7 @@ public class Window extends Canvas {
     int glitch = 0;
 
     public Window(int width, int height, String title) {
+
         window = new JFrame(title);
         window.pack();
         window.setTitle(title);
@@ -64,6 +68,7 @@ public class Window extends Canvas {
         window.setLayout(null);
         con = window.getContentPane();
         conSize = new Dimension(con.getWidth(), con.getHeight());
+
         titleScreen();
     }
 
@@ -75,19 +80,15 @@ public class Window extends Canvas {
         position = "no";
         TM = ".//resources//audio//opening music.wav";
 
-        if (!isTMPlaying) {
-            mu.setFile(TM);
-            mu.play();
-            mu.loop();
-            isTMPlaying = true;
-        }
 
         /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
         System.out.println(con.getWidth() + "  " + con.getHeight());
         */
         if (glitch == 0) {
-            title = new ImageIcon(".//resources//images//Title.png");
+            timer.start();
+
+            title = new ImageIcon(".//resources//images//Normal_loading3F.gif");
             backImage = new JLabel(title);
 
             background = new JPanel(new BorderLayout());
@@ -277,6 +278,15 @@ public class Window extends Canvas {
         }
         position = "CC";
 
+        inputPanel = new JPanel();
+        inputPanel.setBounds(250,625,500,50);
+        inputPanel.setBackground(Color.white);
+        inputPanel.setLayout(new GridLayout(1,1));
+        inputF = new JTextField();
+        inputF.addActionListener(iHandler);
+        inputPanel.add(inputF);
+        con.add(inputPanel);
+
         Pescb = new JButton("Pescadorianssssssssssssss");
         Pescb.setForeground(Color.white);
         Pescb.setFont(raceFont);
@@ -400,6 +410,27 @@ public class Window extends Canvas {
         }
     }
 
+    Timer  timer=new Timer(10000,new ActionListener(){
+        public void actionPerformed(ActionEvent e)
+        {
+            backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
+            if (!isTMPlaying) {
+                mu.setFile(TM);
+                mu.play();
+                mu.loop();
+                isTMPlaying = true;
+            }
+            timer.stop();
+        }
+    });
+
+    public class InputHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+
+            pname = inputF.getText();
+        }
+    }
+
     public class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             sfx = ".//resources//audio//click sound2 (1).wav";
@@ -464,6 +495,12 @@ public class Window extends Canvas {
                                 pdefense = 20;
                                 break;
                             case "Create":
+                                if (!racechange || pname == null){
+                                    System.out.println("no");
+                                }
+                                else{
+                                    System.out.println("yes");
+                                }
                                 break;
                         }
                 }
