@@ -45,12 +45,9 @@ public class Window extends Canvas {
     String TM,sfx;
     Music mu = new Music();
     SoundEffect se = new SoundEffect();
-<<<<<<< Updated upstream
-=======
 
     boolean racechange = false;
-
->>>>>>> Stashed changes
+    boolean isTMPlaying = false;
 
     //possibly unnecessary variable but needed to fix glitch lol
     int glitch = 0;
@@ -77,14 +74,17 @@ public class Window extends Canvas {
         }
         position = "no";
         TM = ".//resources//audio//opening music.wav";
-<<<<<<< Updated upstream
-        
-=======
 
->>>>>>> Stashed changes
         mu.setFile(TM);
         mu.play();
         mu.loop();
+
+        if (!isTMPlaying) {
+            mu.setFile(TM);
+            mu.play();
+            mu.loop();
+            isTMPlaying = true;
+        }
 
         /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
@@ -261,7 +261,7 @@ public class Window extends Canvas {
     }
 
     public void QuitMenu () {
-        mu.stop();
+        //mu.stop();
         position = "QM";
         //Cpanel.setVisible(false);
         //NGpanel.setVisible(false);
