@@ -80,7 +80,6 @@ public class Window extends Canvas {
         position = "no";
         TM = ".//resources//audio//opening music.wav";
 
-
         /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
         System.out.println(con.getWidth() + "  " + con.getHeight());
@@ -354,7 +353,8 @@ public class Window extends Canvas {
                 gainControl.setValue(-10.0f);
             }
             catch(Exception e){
-
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
         }
 
@@ -389,7 +389,8 @@ public class Window extends Canvas {
                 gainControl.setValue(-10.0f);
             }
             catch(Exception e){
-
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
         }
 
@@ -410,7 +411,7 @@ public class Window extends Canvas {
         }
     }
 
-    Timer  timer=new Timer(10000,new ActionListener(){
+    Timer timer = new Timer(10000,new ActionListener() {
         public void actionPerformed(ActionEvent e)
         {
             backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
