@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HealthBar extends Screen{
-    JPanel HPBar, Buttonpanel;
+    JPanel HPBar;
     JProgressBar HealthBar;
     JButton attack,heal;
     //current player hp

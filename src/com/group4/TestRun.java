@@ -5,10 +5,11 @@ import java.awt.event.ActionListener;
 
 public class TestRun {
     Screen ss = new Screen();
+    tutorialBattle tb = new tutorialBattle();
     ActionHandler action = new ActionHandler();
 
-    TestRun() {
-        ss.StartScreen(action);
+    TestRun(){
+        tb.tutorial(action);
     }
 
     public static void main(String[] args) {
@@ -23,6 +24,10 @@ public class TestRun {
             String choice = e.getActionCommand();
             switch (choice) {
                 case "start": ss.Shop();
+                case "attack": tb.attackInstructions(); break;
+                case "defend": tb.defendInstructions(); break;
+                case "potion": tb.potionInstructions(); break;
+                case "retreat": System.out.println("Success"); break;
             }
         }
     }
