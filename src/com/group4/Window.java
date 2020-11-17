@@ -123,7 +123,7 @@ public class Window extends Canvas {
     public void templeTest() {
         startButton.setEnabled(false);
         Player player = new Player(1);
-        new TempleEncounter(con, backImage, player, "forest");
+        new TempleEncounter(window, con, backImage, player, "forest");
     }
 
     public void mainMenu() {
