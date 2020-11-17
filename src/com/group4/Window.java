@@ -39,6 +39,8 @@ public class Window extends Canvas {
     Font raceFont = new Font("Arial",Font.PLAIN, 18);
     ButtonHandler bHandler = new ButtonHandler();
     InputHandler iHandler = new InputHandler();
+    NewPlayer NP;
+    TestRun TR;
 
     //for player
     String pname = null, prace;
@@ -51,6 +53,7 @@ public class Window extends Canvas {
 
     boolean racechange = false;
     boolean isTMPlaying = false;
+    boolean ExistingPlayer = false;
 
     //possibly unnecessary variable but needed to fix glitch lol
     int glitch = 0;
@@ -100,7 +103,11 @@ public class Window extends Canvas {
         startButton = new JButton("PLAYS");
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
+<<<<<<< Updated upstream
         startButton.addActionListener(evt -> mainMenu());
+=======
+        startButton.addActionListener(evt -> mainMenu()); // CHANGE BACK TO MAINMENU AFTER FINISHING RANDOM ENCOUNTER CODE
+>>>>>>> Stashed changes
         startButton.addActionListener(bHandler);
         startButton.setOpaque(false);
 
@@ -111,14 +118,62 @@ public class Window extends Canvas {
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
         startButton.setVisible(true);
+<<<<<<< Updated upstream
+=======
+        if (backImage.getIcon().toString().equals(titleImagePath)) {
+            startButton.setEnabled(true);
+        }
+>>>>>>> Stashed changes
 
         window.setVisible(true);
     }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     public void mainMenu() {
         glitch = glitch + 1;
         System.out.println("button test worked");
-        Menu1();
+        if (!ExistingPlayer) {
+            Menu0();
+        }
+        else {
+            Menu1();
+        }
+    }
+
+    public void Menu0 () {
+        position = "m0";
+
+        startButton.setVisible(false);
+        backImage.setIcon(new ImageIcon(".//resources//images//NGMenu.png"));
+
+        NGbutton = new JButton("NEWGAMESSSSSSSSSSSSS");
+        NGbutton.setForeground(Color.white);
+        NGbutton.setFont(NGFont);
+        NGbutton.addActionListener(bHandler);
+        NGbutton.setActionCommand("ngb");
+        NGbutton.setOpaque(false);
+        NGpanel = new JPanel();
+        NGpanel.setBounds(0,455,500,150);
+        NGpanel.setBackground(Color.blue);
+        NGpanel.setOpaque(false);
+        NGpanel.add(NGbutton);
+        con.add(NGpanel);
+
+        Qbutton = new JButton("QUITS");
+        Qbutton.setForeground(Color.white);
+        Qbutton.setFont(QFont);
+        Qbutton.addActionListener(bHandler);
+        Qbutton.setActionCommand("qb");
+        Qbutton.setOpaque(false);
+        Qpanel = new JPanel();
+        Qpanel.setBounds(25,487,300,150);
+        Qpanel.setBackground(Color.blue);
+        Qpanel.setOpaque(false);
+        Qpanel.add(Qbutton);
+        con.add(Qpanel);
     }
 
     public void Menu1(){
@@ -211,8 +266,9 @@ public class Window extends Canvas {
     }
 
     public void NwgMenu () {
-        position = "NGM";
-        Cbutton.setVisible(false);
+        if (position.equals("m1")) {
+            Cbutton.setVisible(false);
+        }
         NGbutton.setVisible(false);
         Qbutton.setVisible(false);
         backImage.setIcon(new ImageIcon(".//resources//images//MenuNG.png"));
@@ -410,7 +466,12 @@ public class Window extends Canvas {
         }
     }
 
+<<<<<<< Updated upstream
     Timer  timer=new Timer(10000,new ActionListener(){
+=======
+    //change to 15000 as delay, gin 1k ko lng para dasig check sng gui
+    Timer timer = new Timer(1000,new ActionListener() {
+>>>>>>> Stashed changes
         public void actionPerformed(ActionEvent e)
         {
             backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
@@ -446,6 +507,15 @@ public class Window extends Canvas {
                             case "cb":
                                 ConMenu();
                                 break;
+                            case "ngb":
+                                NwgMenu();
+                                break;
+                            case "qb":
+                                QuitMenu();
+                                break;
+                        }
+                    case "m0":
+                        switch (yourChoice) {
                             case "ngb":
                                 NwgMenu();
                                 break;
@@ -499,6 +569,11 @@ public class Window extends Canvas {
                                     System.out.println("no");
                                 }
                                 else{
+                                    mu.stop();
+                                    ExistingPlayer = true;
+                                    NP = new NewPlayer(playnum, pname, prace, phealth, pattack, pdefense);
+                                    backImage.setVisible(false);
+                                    TR = new TestRun();
                                     System.out.println("yes");
                                 }
                                 break;
