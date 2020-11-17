@@ -74,11 +74,9 @@ public class Window extends Canvas {
 
     // Main menu screen is created when starting the application
     public void titleScreen() {
-        if (glitch >= 1) {
-            backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
-        }
         position = "no";
         TM = ".//resources//audio//opening music.wav";
+        String titleImagePath = ".//resources//images//Title.png";
 
         /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
@@ -87,6 +85,8 @@ public class Window extends Canvas {
         if (glitch == 0) {
             timer.start();
 
+            startButton = new JButton("PLAYS");
+            startButton.setEnabled(false);
             title = new ImageIcon(".//resources//images//Normal_loading3F.gif");
             backImage = new JLabel(title);
 
@@ -95,11 +95,14 @@ public class Window extends Canvas {
             background.add(backImage);
             con.add(background);
         }
+        else {
+            startButton = new JButton("PLAYS");
+            backImage.setIcon(new ImageIcon(titleImagePath));
+        }
 
-        startButton = new JButton("PLAYS");
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
-        startButton.addActionListener(evt -> mainMenu());
+        startButton.addActionListener(evt -> templeTest()); // CHANGE BACK TO MAINMENU AFTER FINISHING RANDOM ENCOUNTER CODE
         startButton.addActionListener(bHandler);
         startButton.setOpaque(false);
 
@@ -110,12 +113,21 @@ public class Window extends Canvas {
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
         startButton.setVisible(true);
+        if (backImage.getIcon().toString().equals(titleImagePath))
+            startButton.setEnabled(true);
 
         window.setVisible(true);
     }
 
+    // DELETE AFTER FINISHING RANDOM ENCOUNTER CODE
+    public void templeTest() {
+        startButton.setEnabled(false);
+        Player player = new Player(1);
+        new TempleEncounter(con, backImage, player, "forest");
+    }
+
     public void mainMenu() {
-        glitch = glitch + 1;
+        glitch++;
         System.out.println("button test worked");
         Menu1();
     }
@@ -415,6 +427,7 @@ public class Window extends Canvas {
         public void actionPerformed(ActionEvent e)
         {
             backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
+            startButton.setEnabled(true);
             if (!isTMPlaying) {
                 mu.setFile(TM);
                 mu.play();
