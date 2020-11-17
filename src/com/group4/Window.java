@@ -77,12 +77,9 @@ public class Window extends Canvas {
 
     // Main menu screen is created when starting the application
     public void titleScreen() {
-        if (glitch >= 1) {
-            backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
-        }
         position = "no";
         TM = ".//resources//audio//opening music.wav";
-
+        String titleImagePath = ".//resources//images//Title.png";
 
         /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
@@ -91,6 +88,8 @@ public class Window extends Canvas {
         if (glitch == 0) {
             timer.start();
 
+            startButton = new JButton("PLAYS");
+            startButton.setEnabled(false);
             title = new ImageIcon(".//resources//images//Normal_loading3F.gif");
             backImage = new JLabel(title);
 
@@ -99,15 +98,15 @@ public class Window extends Canvas {
             background.add(backImage);
             con.add(background);
         }
+        else {
+            startButton = new JButton("PLAYS");
+            backImage.setIcon(new ImageIcon(titleImagePath));
+        }
 
-        startButton = new JButton("PLAYS");
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
-<<<<<<< Updated upstream
-        startButton.addActionListener(evt -> mainMenu());
-=======
+		
         startButton.addActionListener(evt -> mainMenu()); // CHANGE BACK TO MAINMENU AFTER FINISHING RANDOM ENCOUNTER CODE
->>>>>>> Stashed changes
         startButton.addActionListener(bHandler);
         startButton.setOpaque(false);
 
@@ -118,22 +117,22 @@ public class Window extends Canvas {
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
         startButton.setVisible(true);
-<<<<<<< Updated upstream
-=======
         if (backImage.getIcon().toString().equals(titleImagePath)) {
             startButton.setEnabled(true);
         }
->>>>>>> Stashed changes
 
         window.setVisible(true);
     }
 
-<<<<<<< Updated upstream
-=======
+    // DELETE AFTER FINISHING RANDOM ENCOUNTER CODE
+    public void templeTest() {
+        startButton.setEnabled(false);
+        Player player = new Player(1);
+        new TempleEncounter(window, con, backImage, player, "forest");
+    }
 
->>>>>>> Stashed changes
     public void mainMenu() {
-        glitch = glitch + 1;
+        glitch++;
         System.out.println("button test worked");
         if (!ExistingPlayer) {
             Menu0();
@@ -410,7 +409,8 @@ public class Window extends Canvas {
                 gainControl.setValue(-10.0f);
             }
             catch(Exception e){
-
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
         }
 
@@ -445,7 +445,8 @@ public class Window extends Canvas {
                 gainControl.setValue(-10.0f);
             }
             catch(Exception e){
-
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
         }
 
@@ -466,15 +467,12 @@ public class Window extends Canvas {
         }
     }
 
-<<<<<<< Updated upstream
-    Timer  timer=new Timer(10000,new ActionListener(){
-=======
     //change to 15000 as delay, gin 1k ko lng para dasig check sng gui
     Timer timer = new Timer(1000,new ActionListener() {
->>>>>>> Stashed changes
         public void actionPerformed(ActionEvent e)
         {
             backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
+            startButton.setEnabled(true);
             if (!isTMPlaying) {
                 mu.setFile(TM);
                 mu.play();
