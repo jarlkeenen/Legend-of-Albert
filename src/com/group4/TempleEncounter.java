@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class TempleEncounter {
 
+    JFrame window;
     Container con;
     Dimension conSize;
     String area;
@@ -23,9 +24,12 @@ public class TempleEncounter {
     JPanel attackPanel, defendPanel, potionPanel, retreatPanel;
     JButton attackButton, defendButton, potionButton, retreatButton;
 
+    Font normalFont = new Font("Arial",Font.PLAIN, 25);
+
     BattleHandler battleHandler = new BattleHandler();
 
-    public TempleEncounter(Container con, JLabel backImage, Player player, String area) {
+    public TempleEncounter(JFrame window, Container con, JLabel backImage, Player player, String area) {
+        this.window = window;
         this.con = con;
         this.player = player;
         conSize = new Dimension(con.getWidth(), con.getHeight());
@@ -48,20 +52,26 @@ public class TempleEncounter {
         String backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
         backImage.setIcon(new ImageIcon(backgroundFilePath));
 
+        // JEZZ PUCHA WAAY GID NI GA BUTWA ANG LINTE NI NGA BUTTON HALP
+        /*
         attackButton = new JButton("ATTACK");
         attackButton.setForeground(Color.white);
+        attackButton.setFont(normalFont);
         attackButton.addActionListener(battleHandler);
         attackButton.setActionCommand("attack");
         attackButton.setOpaque(true);
         attackPanel = new JPanel();
-        attackPanel.setBounds(500,485,500,150);
+        attackPanel.setBounds(-18,435,600,150);
         attackPanel.setBackground(Color.blue);
         attackPanel.setOpaque(true);
         attackPanel.add(attackButton);
         con.add(attackPanel);
+        attackButton.setVisible(true);
+        */
 
         System.out.println(con.getWidth() + "  " + con.getHeight());
 
+        con.setVisible(true);
         encounterCounter++;
     }
 
