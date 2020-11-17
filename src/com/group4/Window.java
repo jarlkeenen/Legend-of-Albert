@@ -82,7 +82,7 @@ public class Window extends Canvas {
         }
         position = "no";
         TM = ".//resources//audio//opening music.wav";
-
+        String titleImagePath = ".//resources//images//Title.png";
 
         /* DELETE COMMENT TO TEST. IMAGE SIZE SHOULD BE EQUAL TO CON SIZE
         System.out.println(image.getIconWidth() + "  " + image.getIconHeight());
@@ -103,11 +103,7 @@ public class Window extends Canvas {
         startButton = new JButton("PLAYS");
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
-<<<<<<< Updated upstream
-        startButton.addActionListener(evt -> mainMenu());
-=======
         startButton.addActionListener(evt -> mainMenu()); // CHANGE BACK TO MAINMENU AFTER FINISHING RANDOM ENCOUNTER CODE
->>>>>>> Stashed changes
         startButton.addActionListener(bHandler);
         startButton.setOpaque(false);
 
@@ -118,20 +114,13 @@ public class Window extends Canvas {
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
         startButton.setVisible(true);
-<<<<<<< Updated upstream
-=======
         if (backImage.getIcon().toString().equals(titleImagePath)) {
             startButton.setEnabled(true);
         }
->>>>>>> Stashed changes
 
         window.setVisible(true);
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     public void mainMenu() {
         glitch = glitch + 1;
         System.out.println("button test worked");
@@ -466,12 +455,8 @@ public class Window extends Canvas {
         }
     }
 
-<<<<<<< Updated upstream
-    Timer  timer=new Timer(10000,new ActionListener(){
-=======
     //change to 15000 as delay, gin 1k ko lng para dasig check sng gui
     Timer timer = new Timer(1000,new ActionListener() {
->>>>>>> Stashed changes
         public void actionPerformed(ActionEvent e)
         {
             backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
