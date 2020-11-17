@@ -13,11 +13,14 @@ public class TempleEncounter {
     String area;
     int encounterCounter = 0;
 
+    JLayeredPane layers = new JLayeredPane();
+
     Player player;
 
     int randomEnemy;
     int[] randomEnemyChecker = {0, 0};
 
+    JPanel background;
     JLabel backImage;
 
     // Actions:
@@ -33,7 +36,7 @@ public class TempleEncounter {
         this.con = con;
         this.player = player;
         conSize = new Dimension(con.getWidth(), con.getHeight());
-        this.backImage = backImage;
+        //this.backImage = backImage;
         this.area = area.toUpperCase();
         battleScreen();
     }
@@ -48,12 +51,14 @@ public class TempleEncounter {
         }
         else
             randomEnemy = 5;
-        System.out.println(randomEnemy);
         String backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
-        backImage.setIcon(new ImageIcon(backgroundFilePath));
+        backImage = new JLabel(new ImageIcon(backgroundFilePath));
 
-        // JEZZ PUCHA WAAY GID NI GA BUTWA ANG LINTE NI NGA BUTTON HALP
-        /*
+        background = new JPanel(new BorderLayout());
+        background.setSize(conSize);
+        background.add(backImage);
+        con.add(background);
+
         attackButton = new JButton("ATTACK");
         attackButton.setForeground(Color.white);
         attackButton.setFont(normalFont);
@@ -61,17 +66,52 @@ public class TempleEncounter {
         attackButton.setActionCommand("attack");
         attackButton.setOpaque(true);
         attackPanel = new JPanel();
-        attackPanel.setBounds(-18,435,600,150);
+        attackPanel.setBounds(0, 540, 500, 164);
         attackPanel.setBackground(Color.blue);
         attackPanel.setOpaque(true);
         attackPanel.add(attackButton);
         con.add(attackPanel);
         attackButton.setVisible(true);
-        */
 
-        System.out.println(con.getWidth() + "  " + con.getHeight());
+        defendButton = new JButton("DEFEND");
+        defendButton.setForeground(Color.white);
+        defendButton.setFont(normalFont);
+        defendButton.addActionListener(battleHandler);
+        defendButton.setActionCommand("defend");
+        defendButton.setOpaque(true);
+        defendPanel = new JPanel();
+        defendPanel.setBounds(780, 540, 500, 168);
+        defendPanel.setBackground(Color.blue);
+        defendPanel.setOpaque(true);
+        defendPanel.add(defendButton);
+        con.add(defendPanel);
+        defendButton.setVisible(true);
 
-        con.setVisible(true);
+        potionButton = new JButton("POTION");
+        potionButton.setForeground(Color.white);
+        potionButton.setFont(normalFont);
+        potionButton.addActionListener(battleHandler);
+        potionButton.setActionCommand("potion");
+        potionButton.setOpaque(true);
+        potionPanel = new JPanel();
+        potionPanel.setBounds(0, 630, 500, 82);
+        potionPanel.setBackground(Color.blue);
+        potionPanel.setOpaque(true);
+        potionPanel.add(potionButton);
+        con.add(potionPanel);
+        potionButton.setVisible(true);
+
+        retreatButton = new JButton("RETREAT");
+        retreatButton.setForeground(Color.white);
+        retreatButton.setFont(normalFont);
+        retreatButton.addActionListener(battleHandler);
+        retreatButton.setActionCommand("retreat");
+        retreatButton.setOpaque(true);
+        retreatPanel = new JPanel();
+
+
+
+
         encounterCounter++;
     }
 
