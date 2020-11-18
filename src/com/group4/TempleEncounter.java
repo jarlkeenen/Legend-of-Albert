@@ -121,7 +121,7 @@ public class TempleEncounter {
 
     }
 
-    public class BattleHandler implements ActionListener {
+    public static class BattleHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String action = e.getActionCommand();
 

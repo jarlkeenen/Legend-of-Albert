@@ -21,12 +21,12 @@ public class tutorialBattle {
     JProgressBar healthBar,enemyHealthBar;
 
     //sample player attributes
-   private int hp;
-   private int playerDefense=15;
-   private int playerAttack=15;
-   private int playerMaxHp=100;
-   private int healValue=playerMaxHp;
-   private String namePlayer="Albert";
+    private int hp;
+    private int playerDefense=15;
+    private int playerAttack=15;
+    private int playerMaxHp=100;
+    private int healValue=playerMaxHp;
+    private String namePlayer="Albert";
 
     //enemy attributes
     private int enemyHp;
@@ -43,7 +43,15 @@ public class tutorialBattle {
     JTextArea textArea;
     SoundEffect se = new SoundEffect();
 
-    public void tutorial(TestRun.ActionHandler action){
+    ActionHandler action = new ActionHandler();
+
+    public tutorialBattle(Player player, JFrame w, Container c){
+
+        /*
+        window = w;
+        con = c;
+        */
+
         //Window frame...remove if needed to copy paste content to another class with existing JFrame
         window= new JFrame();
         window.setSize(1296,759);
@@ -53,7 +61,6 @@ public class tutorialBattle {
         window.setResizable(false);
         window.setLocationRelativeTo(null);
         con=window.getContentPane();
-        //
 
         background = new JPanel();
         background.setBounds(0,0,1280,720);
@@ -157,7 +164,7 @@ public class tutorialBattle {
         enemyHp = enemyHp- dmg2;
         enemyHealthBar.setValue(enemyHp);
     }
-    public void instructions(TestRun.ActionHandler action){
+    public void instructions(ActionHandler action){
         textAreaPanel =new JPanel();
         textAreaPanel.setBounds(930,110,300,70);
         textAreaPanel.setBackground(new Color(0,0,0,0));
@@ -238,7 +245,7 @@ public class tutorialBattle {
         secondUserPanel.setVisible(false);
         retreatPanel.setVisible(false);
     }
-    public void instruction2(TestRun.ActionHandler action){
+    public void instruction2(ActionHandler action){
         userPanel1=new JPanel();
         userPanel1.setBounds(0,540,500,164);
         userPanel1.setBackground(Color.blue);
@@ -271,7 +278,7 @@ public class tutorialBattle {
     }
     public void defendInstructions(){
         text="Master Jim: When you defend your defense doubles for 1 turn, thus reducing the damage you received."
-        +" Now try healing yourself by drinking a [Lola Remedios], click Potion.";
+                +" Now try healing yourself by drinking a [Lola Remedios], click Potion.";
         prepareText();
         playerDefend(enemyAttack);
         secondUserPanel.setVisible(false);
@@ -315,5 +322,31 @@ public class tutorialBattle {
         i=0;
         textArea.setText("");
         timer.start();
+    }
+
+    class ActionHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            String choice = e.getActionCommand();
+            switch (choice) {
+                case "start":
+                    //ss.Shop(this);
+                    break;
+                case "attack":
+                    attackInstructions();
+                    break;
+                case "defend":
+                    defendInstructions();
+                    break;
+                case "potion":
+                    potionInstructions();
+                    break;
+                case "retreat":
+                    System.out.println("Success");
+                    break;
+            }
+        }
     }
 }

@@ -7,11 +7,13 @@ ALL SCENES WILL BE CODED HERE. CREATE NECESSARY FILES FOR OTHER STUFF LIKE AUDIO
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -23,13 +25,15 @@ public class Window extends Canvas {
 
     SaveFile SaveFilePath = new SaveFile();
 
+    Player player;
+
     JFrame window;
     Container con;
     Dimension conSize;
     JPanel background, inputPanel;
     JLabel backImage;
     ImageIcon title;
-    String position, music = "yes";
+    String position;
     JTextField inputF;
 
     //Button:
@@ -43,7 +47,6 @@ public class Window extends Canvas {
     Font slotFont = new Font("Arial",Font.PLAIN, 77);
     Font raceFont = new Font("Arial",Font.PLAIN, 18);
     ButtonHandler bHandler = new ButtonHandler();
-    TestRun TR;
 
     //for player
     String pname = null, prace;
@@ -66,7 +69,7 @@ public class Window extends Canvas {
     //possibly unnecessary variable but needed to fix glitch lol
     int glitch = 0;
 
-    public Window(int width, int height, String title, boolean existingSaveFile) {
+    public Window(int width, int height, String title, boolean existingSaveFile) throws IOException {
 
         window = new JFrame(title);
         window.pack();
@@ -103,7 +106,7 @@ public class Window extends Canvas {
     }
 
     // Main menu screen is created when starting the application
-    public void titleScreen() {
+    public void titleScreen() throws IOException {
         position = "ts";
         TM = ".//resources//audio//opening music.wav";
         String titleImagePath = ".//resources//images//Title.png";
@@ -115,8 +118,6 @@ public class Window extends Canvas {
         if (glitch == 0) {
             timer.start();
 
-            startButton = new JButton("PLAYS");
-            startButton.setEnabled(false);
             title = new ImageIcon(".//resources//images//Normal_loading3F.gif");
             backImage = new JLabel(title);
 
@@ -124,6 +125,9 @@ public class Window extends Canvas {
             background.setSize(conSize);
             background.add(backImage);
             con.add(background);
+
+            startButton = new JButton("PLAYS");
+            startButton.setEnabled(false);
         }
         else {
             startButton = new JButton("PLAYS");
@@ -148,6 +152,7 @@ public class Window extends Canvas {
             startButton.setEnabled(true);
         }
 
+
         window.setVisible(true);
     }
 
@@ -162,7 +167,6 @@ public class Window extends Canvas {
 
     public void mainMenu() {
         glitch++;
-        System.out.println("button test worked");
         if (ExistingPlayer) {
             Menu1();
         }
@@ -419,7 +423,7 @@ public class Window extends Canvas {
         }
     }
 
-    public void QuitMenu () {
+    public void QuitMenu () throws IOException {
         if (position.equals("m1")) {
             Cbutton.setVisible(false);
         }
@@ -604,7 +608,11 @@ public class Window extends Canvas {
                                 NwgMenu();
                                 break;
                             case "qb":
-                                QuitMenu();
+                                try {
+                                    QuitMenu();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                             case "cb":
                                 ConMenu();
@@ -710,8 +718,14 @@ public class Window extends Canvas {
                                             overwrite = false;
                                     }
                                     new NewPlayer(playnum, inputF.getText(), prace, phealth, pattack, pdefense);
+                                    player = new Player(playnum);
                                     backImage.setVisible(false);
-                                    //TR = new TestRun();
+                                    inputPanel.setVisible(false);
+                                    Pescb.setVisible(false);
+                                    Somb.setVisible(false);
+                                    Omecb.setVisible(false);
+                                    Createb.setVisible(false);
+                                    new Cutscene1(player ,"", ".//resources//images//Cutscene.png", window, con);
                                     System.out.println("yes");
                                 }
                                 break;

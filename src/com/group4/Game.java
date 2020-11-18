@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
@@ -19,7 +20,7 @@ public class Game extends Canvas{
     Window myGame;
 
     // Runs once at the start of the application
-    public Game() {
+    public Game() throws IOException {
         SaveFile SaveFilePath = new SaveFile();
         File savesFolder = new File(SaveFilePath.saveFilesPath);
         savesFolder.mkdirs();
@@ -29,7 +30,7 @@ public class Game extends Canvas{
         myGame = new Window(WIDTH, HEIGHT, "Legend of Albert", existingSaveFile);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Game();
     }
 

@@ -24,7 +24,7 @@ public class Screen extends  Canvas{
     int soundcue=0;
 
 
-    public void StartScreen(TestRun.ActionHandler action){
+    public void StartScreen(CombatTutorial.ActionHandler action){
         //initializes game screen panel
         window= new JFrame();
         window.setSize(WIDTH,HEIGHT);
@@ -67,7 +67,7 @@ public class Screen extends  Canvas{
         window.setVisible(true);
     }
 
-    public void Shop (TestRun.ActionHandler action){
+    public void Shop (CombatTutorial.ActionHandler action){
         startbuttonpanel.setVisible(false);
         exchangebuttonpanel=new JPanel();
         exchangebuttonpanel.setBounds(500,640,250,50);
