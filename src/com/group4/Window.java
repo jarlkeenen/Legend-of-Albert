@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -19,7 +22,6 @@ import javax.swing.Timer;
 public class Window extends Canvas {
 
     SaveFile SaveFilePath = new SaveFile();
-    File savesFolder = new File(SaveFilePath.saveFilesPath);
 
     JFrame window;
     Container con;
@@ -47,12 +49,16 @@ public class Window extends Canvas {
     String pname = null, prace;
     int playnum, phealth, pattack, pdefense;
 
+    // For Saves (JEZZ USE THESE STRINGS FOR THE SLOT NAMES AND RACES)
+    String[] slotNames = new String[3];
+    String[] slotRaces = new String[3];
+
     //Music:
     String TM,sfx;
     Music mu = new Music();
     SoundEffect se = new SoundEffect();
 
-    int overwrite;
+    boolean overwrite;
     boolean racechange = false;
     boolean isTMPlaying = false;
     boolean ExistingPlayer;
@@ -75,6 +81,23 @@ public class Window extends Canvas {
         conSize = new Dimension(con.getWidth(), con.getHeight());
 
         ExistingPlayer = existingSaveFile;
+
+        for (int i = 0; i < 3; i++) {
+            File saveFile = new File(SaveFilePath.saveFilesPath + "\\Slot " + (i + 1) + ".txt");
+            if (saveFile.exists()) {
+                try{
+                    slotNames[i] = Files.readAllLines(Paths.get(SaveFilePath.saveFilesPath + "\\Slot " + (i + 1) + ".txt")).get(7);
+                    slotRaces[i] = Files.readAllLines(Paths.get(SaveFilePath.saveFilesPath + "\\Slot " + (i + 1) + ".txt")).get(8);
+                    if (slotNames[i] == null)
+                        slotNames[i] = "";
+                    if (slotRaces[i] == null)
+                        slotRaces[i] = "";
+                }
+                catch(IOException e){
+                    System.out.println(e);
+                }
+            }
+        }
 
         titleScreen();
     }
@@ -355,6 +378,32 @@ public class Window extends Canvas {
         slot3b.setVisible(false);
         backImage.setIcon(new ImageIcon(".//resources//images//Overwrite.png"));
 
+        OWyesB = new JButton("YESSS");
+        OWyesB.setForeground(Color.white);
+        OWyesB.setFont(normalFont);
+        OWyesB.addActionListener(bHandler);
+        OWyesB.setActionCommand("OWyes");
+        OWyesB.setOpaque(false);
+        OWyesP = new JPanel();
+        OWyesP.setBounds(425,352,430,160);
+        OWyesP.setBackground(Color.blue);
+        OWyesP.setOpaque(false);
+        OWyesP.add(OWyesB);
+        con.add(OWyesP);
+
+        OWnoB = new JButton("NOO");
+        OWnoB.setForeground(Color.white);
+        OWnoB.setFont(normalFont);
+        OWnoB.addActionListener(bHandler);
+        OWnoB.setActionCommand("OWno");
+        OWnoB.setOpaque(false);
+        OWnoP = new JPanel();
+        OWnoP.setBounds(495,400,290,150);
+        OWnoP.setBackground(Color.blue);
+        OWnoP.setOpaque(false);
+        OWnoP.add(OWnoB);
+        con.add(OWnoP);
+
     }
 
     public void back() {
@@ -611,6 +660,7 @@ public class Window extends Canvas {
                     case "OW":
                         switch (yourChoice) {
                             case "OWyes":
+                                overwrite = true;
                                 OWyesB.setVisible(false);
                                 OWnoB.setVisible(false);
                                 CreateChar();
@@ -654,6 +704,11 @@ public class Window extends Canvas {
                                 }
                                 else{
                                     mu.stop();
+                                    if (overwrite) {
+                                        File saveFile = new File(SaveFilePath.saveFilesPath + "\\Slot " + playnum + ".txt");
+                                        if (saveFile.delete())
+                                            overwrite = false;
+                                    }
                                     new NewPlayer(playnum, inputF.getText(), prace, phealth, pattack, pdefense);
                                     backImage.setVisible(false);
                                     //TR = new TestRun();
