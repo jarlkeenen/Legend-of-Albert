@@ -43,11 +43,6 @@ public class SaveFile {
     private int lolaRemedios;
     private int templeKey;
 
-    // Experience
-    private int playerLevel;
-    private int playerMaxXP;
-    private int playerXP;
-
     public int getSaveNum() {
         return saveNum;
     };
@@ -142,30 +137,6 @@ public class SaveFile {
 
     public void setTempleKey(int templeKey) {
         this.templeKey = templeKey;
-    }
-
-    public int getPlayerLevel() {
-        return playerLevel;
-    }
-
-    public void setPlayerLevel(int playerLevel) {
-        this.playerLevel = playerLevel;
-    }
-
-    public int getPlayerMaxXP() {
-        return playerMaxXP;
-    }
-
-    public void setPlayerMaxXP(int playerMaxXP) {
-        this.playerMaxXP = playerMaxXP;
-    }
-
-    public int getPlayerXP() {
-        return playerXP;
-    }
-
-    public void setPlayerXP(int playerXP) {
-        this.playerXP = playerXP;
     }
 
 }

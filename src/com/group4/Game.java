@@ -6,12 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
+import java.util.Objects;
 import java.util.Random;
 
 public class Game extends Canvas{
 
     // Game resolution
     public static final int WIDTH = 1296, HEIGHT = 759;
+
+    boolean existingSaveFile;
 
     Window myGame;
 
@@ -21,7 +24,9 @@ public class Game extends Canvas{
         File savesFolder = new File(SaveFilePath.saveFilesPath);
         savesFolder.mkdirs();
 
-        myGame = new Window(WIDTH, HEIGHT, "Legend of Albert");
+        existingSaveFile = Objects.requireNonNull(savesFolder.list()).length != 0;
+
+        myGame = new Window(WIDTH, HEIGHT, "Legend of Albert", existingSaveFile);
     }
 
     public static void main(String[] args) {

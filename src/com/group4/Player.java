@@ -33,9 +33,6 @@ public class Player extends SaveFile implements Save {
             setLegPants(Boolean.parseBoolean(saveReader.nextLine()));
             setLolaRemedios(Integer.parseInt(saveReader.nextLine()));
             setTempleKey(Integer.parseInt(saveReader.nextLine()));
-            setPlayerLevel(Integer.parseInt(saveReader.nextLine()));
-            setPlayerMaxXP(Integer.parseInt(saveReader.nextLine()));
-            setPlayerXP(Integer.parseInt(saveReader.nextLine()));
 
             saveReader.close();
         } catch (FileNotFoundException e) {
@@ -64,9 +61,6 @@ public class Player extends SaveFile implements Save {
         setLegPants(legPants);
         setLolaRemedios(lolaRemedios);
         setTempleKey(templeKey);
-        setPlayerLevel(playerLevel);
-        setPlayerMaxXP(playerMaxXP);
-        setPlayerXP(playerXP);
     }
 
     @Override
@@ -96,9 +90,6 @@ public class Player extends SaveFile implements Save {
                 saveWriter.append(String.valueOf(getLegPants())).append("\n");
                 saveWriter.append(String.valueOf(getLolaRemedios())).append("\n");
                 saveWriter.append(String.valueOf(getTempleKey())).append("\n");
-                saveWriter.append(String.valueOf(getPlayerLevel())).append("\n");
-                saveWriter.append(String.valueOf(getPlayerMaxXP())).append("\n");
-                saveWriter.append(String.valueOf(getPlayerXP())).append("\n");
 
                 saveWriter.close();
             } else {

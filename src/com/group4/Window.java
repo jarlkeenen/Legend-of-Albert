@@ -18,6 +18,9 @@ import javax.swing.Timer;
 
 public class Window extends Canvas {
 
+    SaveFile SaveFilePath = new SaveFile();
+    File savesFolder = new File(SaveFilePath.saveFilesPath);
+
     JFrame window;
     Container con;
     Dimension conSize;
@@ -28,8 +31,8 @@ public class Window extends Canvas {
     JTextField inputF;
 
     //Button:
-    JButton startButton, Cbutton, NGbutton, Qbutton, slot1b, slot2b, slot3b, Pescb, Omecb, Somb, Createb;
-    JPanel startButtonPanel, Cpanel, NGpanel, Qpanel, slot1p, slot2p, slot3p, Pescp, Omecp, Somp, Createp;
+    JButton startButton, Cbutton, NGbutton, Qbutton, backB, slot1b, slot2b, slot3b, OWyesB, OWnoB, Pescb, Omecb, Somb, Createb;
+    JPanel startButtonPanel, Cpanel, NGpanel, Qpanel, backP, slot1p, slot2p, slot3p, OWyesP, OWnoP, Pescp, Omecp, Somp, Createp;
 
     //may font kay gina size nila ang buttons for some reason lol
     Font normalFont = new Font("Arial",Font.PLAIN, 25);
@@ -38,8 +41,6 @@ public class Window extends Canvas {
     Font slotFont = new Font("Arial",Font.PLAIN, 77);
     Font raceFont = new Font("Arial",Font.PLAIN, 18);
     ButtonHandler bHandler = new ButtonHandler();
-    InputHandler iHandler = new InputHandler();
-    NewPlayer NP;
     TestRun TR;
 
     //for player
@@ -51,14 +52,15 @@ public class Window extends Canvas {
     Music mu = new Music();
     SoundEffect se = new SoundEffect();
 
+    int overwrite;
     boolean racechange = false;
     boolean isTMPlaying = false;
-    boolean ExistingPlayer = false;
+    boolean ExistingPlayer;
 
     //possibly unnecessary variable but needed to fix glitch lol
     int glitch = 0;
 
-    public Window(int width, int height, String title) {
+    public Window(int width, int height, String title, boolean existingSaveFile) {
 
         window = new JFrame(title);
         window.pack();
@@ -72,12 +74,14 @@ public class Window extends Canvas {
         con = window.getContentPane();
         conSize = new Dimension(con.getWidth(), con.getHeight());
 
+        ExistingPlayer = existingSaveFile;
+
         titleScreen();
     }
 
     // Main menu screen is created when starting the application
     public void titleScreen() {
-        position = "no";
+        position = "ts";
         TM = ".//resources//audio//opening music.wav";
         String titleImagePath = ".//resources//images//Title.png";
 
@@ -126,19 +130,21 @@ public class Window extends Canvas {
 
     // DELETE AFTER FINISHING RANDOM ENCOUNTER CODE
     public void templeTest() {
+        background.setVisible(false);
+        startButton.setVisible(false);
         startButton.setEnabled(false);
         Player player = new Player(1);
-        new TempleEncounter(window, con, backImage, player, "forest");
+        new TempleEncounter(window, con, player, "forest");
     }
 
     public void mainMenu() {
         glitch++;
         System.out.println("button test worked");
-        if (!ExistingPlayer) {
-            Menu0();
+        if (ExistingPlayer) {
+            Menu1();
         }
         else {
-            Menu1();
+            Menu0();
         }
     }
 
@@ -187,7 +193,7 @@ public class Window extends Canvas {
         Cbutton.setActionCommand("cb");
         Cbutton.setOpaque(false);
         Cpanel = new JPanel();
-        Cpanel.setBounds(-18,435,600,150);
+        Cpanel.setBounds(-69,450,700,150);
         Cpanel.setBackground(Color.blue);
         Cpanel.setOpaque(false);
         Cpanel.add(Cbutton);
@@ -200,7 +206,7 @@ public class Window extends Canvas {
         NGbutton.setActionCommand("ngb");
         NGbutton.setOpaque(false);
         NGpanel = new JPanel();
-        NGpanel.setBounds(5,485,500,150);
+        NGpanel.setBounds(5,495,500,150);
         NGpanel.setBackground(Color.blue);
         NGpanel.setOpaque(false);
         NGpanel.add(NGbutton);
@@ -213,7 +219,7 @@ public class Window extends Canvas {
         Qbutton.setActionCommand("qb");
         Qbutton.setOpaque(false);
         Qpanel = new JPanel();
-        Qpanel.setBounds(34,517,300,150);
+        Qpanel.setBounds(34,530,300,150);
         Qpanel.setBackground(Color.blue);
         Qpanel.setOpaque(false);
         Qpanel.add(Qbutton);
@@ -226,6 +232,19 @@ public class Window extends Canvas {
         NGbutton.setVisible(false);
         Qbutton.setVisible(false);
         backImage.setIcon(new ImageIcon(".//resources//images//MenuC.png"));
+
+        backB = new JButton("BACK");
+        backB.setForeground(Color.white);
+        backB.setFont(slotFont);
+        backB.addActionListener(bHandler);
+        backB.setActionCommand("back");
+        backB.setOpaque(false);
+        backP = new JPanel();
+        backP.setBounds(20, 10, 150, 40);
+        backP.setBackground(Color.blue);
+        backP.setOpaque(false);
+        backP.add(backB);
+        con.add(backP);
 
         slot1b = new JButton("            s            ");
         slot1b.setForeground(Color.white);
@@ -272,6 +291,21 @@ public class Window extends Canvas {
         Qbutton.setVisible(false);
         backImage.setIcon(new ImageIcon(".//resources//images//MenuNG.png"));
 
+        position = "NGM";
+
+        backB = new JButton("BACK");
+        backB.setForeground(Color.white);
+        backB.setFont(slotFont);
+        backB.addActionListener(bHandler);
+        backB.setActionCommand("back");
+        backB.setOpaque(false);
+        backP = new JPanel();
+        backP.setBounds(20, 10, 150, 40);
+        backP.setBackground(Color.blue);
+        backP.setOpaque(false);
+        backP.add(backB);
+        con.add(backP);
+
         slot1b = new JButton("            s            ");
         slot1b.setForeground(Color.white);
         slot1b.setFont(slotFont);
@@ -312,13 +346,34 @@ public class Window extends Canvas {
         con.add(slot3p);
     }
 
+    // DIRI I BUTANG ANG YES AND NO BUTTONS JEZZ
+    public void overwrite() {
+        position = "OW";
+        backB.setVisible(false);
+        slot1b.setVisible(false);
+        slot2b.setVisible(false);
+        slot3b.setVisible(false);
+        backImage.setIcon(new ImageIcon(".//resources//images//Overwrite.png"));
+
+    }
+
+    public void back() {
+        backB.setVisible(false);
+        slot1b.setVisible(false);
+        slot2b.setVisible(false);
+        slot3b.setVisible(false);
+        if (ExistingPlayer) {
+            Menu1();
+        }
+        else {
+            Menu0();
+        }
+    }
+
     public void QuitMenu () {
-        //mu.stop();
-        position = "QM";
-        //Cpanel.setVisible(false);
-        //NGpanel.setVisible(false);
-        //Qpanel.setVisible(false);
-        Cbutton.setVisible(false);
+        if (position.equals("m1")) {
+            Cbutton.setVisible(false);
+        }
         NGbutton.setVisible(false);
         Qbutton.setVisible(false);
         titleScreen();
@@ -334,11 +389,11 @@ public class Window extends Canvas {
         position = "CC";
 
         inputPanel = new JPanel();
-        inputPanel.setBounds(250,625,500,50);
+        inputPanel.setBounds(250,625,200,50);
         inputPanel.setBackground(Color.white);
         inputPanel.setLayout(new GridLayout(1,1));
-        inputF = new JTextField();
-        inputF.addActionListener(iHandler);
+        inputF = new JTextField(15);
+        inputF.setFont(new Font("Tahoma",Font.PLAIN, 50));
         inputPanel.add(inputF);
         con.add(inputPanel);
 
@@ -483,13 +538,6 @@ public class Window extends Canvas {
         }
     });
 
-    public class InputHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-
-            pname = inputF.getText();
-        }
-    }
-
     public class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             sfx = ".//resources//audio//click sound2 (1).wav";
@@ -498,20 +546,9 @@ public class Window extends Canvas {
 
             String yourChoice = event.getActionCommand();
 
-            if (!position.equals("no")) {
+            if (!position.equals("ts")) {
                 switch (position) {
                     case "m1":
-                        switch (yourChoice) {
-                            case "cb":
-                                ConMenu();
-                                break;
-                            case "ngb":
-                                NwgMenu();
-                                break;
-                            case "qb":
-                                QuitMenu();
-                                break;
-                        }
                     case "m0":
                         switch (yourChoice) {
                             case "ngb":
@@ -520,20 +557,68 @@ public class Window extends Canvas {
                             case "qb":
                                 QuitMenu();
                                 break;
+                            case "cb":
+                                ConMenu();
+                                break;
                         }
+                        break;
+                    case "CM":
+                        switch (yourChoice) {
+                            case "back":
+                                back();
+                                break;
+                            case "slot1":
+                                break;
+                        }
+                        break;
                     case "NGM":
                         switch (yourChoice) {
+                            case "back":
+                                back();
+                                break;
                             case "Player1":
                                 playnum = 1;
-                                CreateChar();
+                                File saveFile1 = new File(SaveFilePath.saveFilesPath + "\\Slot " + playnum + ".txt");
+                                if (saveFile1.exists()) {
+                                    overwrite();
+                                }
+                                else {
+                                    CreateChar();
+                                }
                                 break;
                             case "Player2":
                                 playnum = 2;
-                                CreateChar();
+                                File saveFile2 = new File(SaveFilePath.saveFilesPath + "\\Slot " + playnum + ".txt");
+                                if (saveFile2.exists()) {
+                                    overwrite();
+                                }
+                                else {
+                                    CreateChar();
+                                }
                                 break;
                             case "Player3":
                                 playnum = 3;
+                                File saveFile3 = new File(SaveFilePath.saveFilesPath + "\\Slot " + playnum + ".txt");
+                                if (saveFile3.exists()) {
+                                    overwrite();
+                                }
+                                else {
+                                    CreateChar();
+                                }
+                                break;
+                        }
+                        break;
+                    case "OW":
+                        switch (yourChoice) {
+                            case "OWyes":
+                                OWyesB.setVisible(false);
+                                OWnoB.setVisible(false);
                                 CreateChar();
+                                break;
+                            case "OWno":
+                                OWyesB.setVisible(false);
+                                OWnoB.setVisible(false);
+                                NwgMenu();
                                 break;
                         }
                     case "CC":
@@ -563,19 +648,20 @@ public class Window extends Canvas {
                                 pdefense = 20;
                                 break;
                             case "Create":
+                                pname = inputF.getText();
                                 if (!racechange || pname == null){
                                     System.out.println("no");
                                 }
                                 else{
                                     mu.stop();
-                                    ExistingPlayer = true;
-                                    NP = new NewPlayer(playnum, pname, prace, phealth, pattack, pdefense);
+                                    new NewPlayer(playnum, inputF.getText(), prace, phealth, pattack, pdefense);
                                     backImage.setVisible(false);
-                                    TR = new TestRun();
+                                    //TR = new TestRun();
                                     System.out.println("yes");
                                 }
                                 break;
                         }
+                        break;
                 }
             }
         }

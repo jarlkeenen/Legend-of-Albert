@@ -31,12 +31,11 @@ public class TempleEncounter {
 
     BattleHandler battleHandler = new BattleHandler();
 
-    public TempleEncounter(JFrame window, Container con, JLabel backImage, Player player, String area) {
+    public TempleEncounter(JFrame window, Container con, Player player, String area) {
         this.window = window;
         this.con = con;
         this.player = player;
         conSize = new Dimension(con.getWidth(), con.getHeight());
-        //this.backImage = backImage;
         this.area = area.toUpperCase();
         battleScreen();
     }
@@ -108,9 +107,12 @@ public class TempleEncounter {
         retreatButton.setActionCommand("retreat");
         retreatButton.setOpaque(true);
         retreatPanel = new JPanel();
-
-
-
+        retreatPanel.setBounds(780, 630, 500, 168);
+        retreatPanel.setBackground(Color.blue);
+        retreatPanel.setOpaque(true);
+        retreatPanel.add(retreatButton);
+        con.add(retreatPanel);
+        retreatButton.setVisible(true);
 
         encounterCounter++;
     }

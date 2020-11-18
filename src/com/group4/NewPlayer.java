@@ -33,12 +33,7 @@ public class NewPlayer extends SaveFile implements Save{
         setLolaRemedios(0);
         setTempleKey(0);
 
-        // Set Experience
-        setPlayerLevel(1);
-        setPlayerMaxXP(100);
-        setPlayerXP(0);
-
-        writeToPlayerFile(1);
+        writeToPlayerFile(saveNum);
     }
 
     // Inputs data into the player's new save file
@@ -69,9 +64,6 @@ public class NewPlayer extends SaveFile implements Save{
                 saveWriter.append(String.valueOf(getLegPants())).append("\n");
                 saveWriter.append(String.valueOf(getLolaRemedios())).append("\n");
                 saveWriter.append(String.valueOf(getTempleKey())).append("\n");
-                saveWriter.append(String.valueOf(getPlayerLevel())).append("\n");
-                saveWriter.append(String.valueOf(getPlayerMaxXP())).append("\n");
-                saveWriter.append(String.valueOf(getPlayerXP())).append("\n");
 
                 saveWriter.close();
             } else {
