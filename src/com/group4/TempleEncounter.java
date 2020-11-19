@@ -13,21 +13,33 @@ public class TempleEncounter {
     String area;
     int encounterCounter = 0;
 
-    JLayeredPane layers = new JLayeredPane();
-
     Player player;
 
     int randomEnemy;
     int[] randomEnemyChecker = {0, 0};
 
+    JLayeredPane screen;
     JPanel background;
     JLabel backImage;
+    String backgroundFilePath;
 
     // Actions:
     JPanel attackPanel, defendPanel, potionPanel, retreatPanel;
     JButton attackButton, defendButton, potionButton, retreatButton;
 
-    Font normalFont = new Font("Arial",Font.PLAIN, 25);
+    JPanel playerStats, enemyStats;
+
+    JLabel playerName, playerHP, playerAttack, playerDefense, lolaRemedios;
+
+    int playerMaxHPI, playerHPI, playerAttackI, playerDefenseI, lolaRemediosI;
+    String playerNameI, playerHPS, playerAttackS, playerDefenseS, lolaRemediosS;
+
+    JLabel enemyName, enemyMaxHP, enemyHP, enemyAttack, enemyDefense;
+
+    int enemyMaxHPI, enemyHPI, enemyAttackI, enemyDefenseI;
+    String enemyNameI, enemyHPS, enemyAttackS, enemyDefenseS;
+
+    Font normalFont = new Font("Arial",Font.PLAIN, 30);
 
     BattleHandler battleHandler = new BattleHandler();
 
@@ -37,10 +49,41 @@ public class TempleEncounter {
         this.player = player;
         conSize = new Dimension(con.getWidth(), con.getHeight());
         this.area = area.toUpperCase();
+
+        playerNameI = player.getPlayerName();
+        playerMaxHPI = player.getPlayerMaxHealth();
+        playerHPI = player.getPlayerHealth();
+        playerAttackI = player.getPlayerAttack();
+        playerDefenseI = player.getPlayerDefense();
+        lolaRemediosI = player.getLolaRemedios();
+
+        playerHPS = "HP: " + playerHPI + "/" + playerMaxHPI;
+        playerAttackS = "ATK: " + playerAttackI;
+        playerDefenseS = "DEF: " + playerDefenseI;
+        lolaRemediosS = "LR: " + lolaRemediosI;
+
+        enemyHPS = ":HP";
+
+        // Sample Stats. Changes depending on enemy.
+        /*
+        ENEMY BASE STATS:
+        MaxHP = 100
+        Attack = 105
+        Defense = 90
+         */
+        enemyNameI = "Babadook";
+        enemyMaxHPI = 100;
+        enemyHPI = enemyMaxHPI;
+        enemyAttackI = 105;
+        enemyDefenseI = 90;
+
         battleScreen();
     }
 
     public void battleScreen() {
+        screen = new JLayeredPane();
+        screen.setSize(conSize);
+
         if (encounterCounter != 3) {
             do {
                 randomEnemy = (int)(Math.random() * (4 - 1 + 1)) + 1;
@@ -50,100 +93,140 @@ public class TempleEncounter {
         }
         else
             randomEnemy = 5;
-        String backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
+        backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
         backImage = new JLabel(new ImageIcon(backgroundFilePath));
 
         background = new JPanel(new BorderLayout());
         background.setSize(conSize);
         background.add(backImage);
-        con.add(background);
+        screen.add(background, Integer.valueOf(0));
 
-        attackButton = new JButton("ATTACK");
-        attackButton.setForeground(Color.white);
-        attackButton.setFont(normalFont);
+
+        attackButton = new JButton();
         attackButton.addActionListener(battleHandler);
         attackButton.setActionCommand("attack");
-        attackButton.setOpaque(true);
-        attackPanel = new JPanel();
-        attackPanel.setBounds(0, 540, 500, 164);
-        attackPanel.setBackground(Color.blue);
-        attackPanel.setOpaque(true);
+        attackButton.setOpaque(false);
+        attackButton.setContentAreaFilled(false);
+        attackButton.setBorderPainted(false);
+        attackPanel = new JPanel(new BorderLayout());
+        attackPanel.setBounds(0,536,406,75);
+        attackPanel.setOpaque(false);
         attackPanel.add(attackButton);
-        con.add(attackPanel);
-        attackButton.setVisible(true);
+        screen.add(attackPanel, Integer.valueOf(1));
 
-        defendButton = new JButton("DEFEND");
-        defendButton.setForeground(Color.white);
-        defendButton.setFont(normalFont);
+        defendButton = new JButton();
         defendButton.addActionListener(battleHandler);
         defendButton.setActionCommand("defend");
-        defendButton.setOpaque(true);
-        defendPanel = new JPanel();
-        defendPanel.setBounds(780, 540, 500, 168);
-        defendPanel.setBackground(Color.blue);
-        defendPanel.setOpaque(true);
+        defendButton.setOpaque(false);
+        defendButton.setContentAreaFilled(false);
+        defendButton.setBorderPainted(false);
+        defendPanel = new JPanel(new BorderLayout());
+        defendPanel.setBounds(868, 536, 412, 75);
+        defendPanel.setOpaque(false);
         defendPanel.add(defendButton);
-        con.add(defendPanel);
-        defendButton.setVisible(true);
+        screen.add(defendPanel, Integer.valueOf(1));
 
-        potionButton = new JButton("POTION");
-        potionButton.setForeground(Color.white);
-        potionButton.setFont(normalFont);
+        potionButton = new JButton();
         potionButton.addActionListener(battleHandler);
         potionButton.setActionCommand("potion");
-        potionButton.setOpaque(true);
-        potionPanel = new JPanel();
-        potionPanel.setBounds(0, 630, 500, 82);
-        potionPanel.setBackground(Color.blue);
-        potionPanel.setOpaque(true);
+        potionButton.setOpaque(false);
+        potionButton.setContentAreaFilled(false);
+        potionButton.setBorderPainted(false);
+        potionPanel = new JPanel(new BorderLayout());
+        potionPanel.setBounds(0, 627, 406, 75);
+        potionPanel.setOpaque(false);
         potionPanel.add(potionButton);
-        con.add(potionPanel);
-        potionButton.setVisible(true);
+        screen.add(potionPanel, Integer.valueOf(1));
 
-        retreatButton = new JButton("RETREAT");
-        retreatButton.setForeground(Color.white);
-        retreatButton.setFont(normalFont);
+        retreatButton = new JButton();
         retreatButton.addActionListener(battleHandler);
         retreatButton.setActionCommand("retreat");
-        retreatButton.setOpaque(true);
-        retreatPanel = new JPanel();
-        retreatPanel.setBounds(780, 630, 500, 168);
-        retreatPanel.setBackground(Color.blue);
-        retreatPanel.setOpaque(true);
+        retreatButton.setOpaque(false);
+        retreatButton.setContentAreaFilled(false);
+        retreatButton.setBorderPainted(false);
+        retreatPanel = new JPanel(new BorderLayout());
+        retreatPanel.setBounds(868, 627, 412, 75);
+        retreatPanel.setOpaque(false);
         retreatPanel.add(retreatButton);
-        con.add(retreatPanel);
-        retreatButton.setVisible(true);
+        screen.add(retreatPanel, Integer.valueOf(1));
 
+        playerName = new JLabel(playerNameI);
+        playerName.setAlignmentX(Component.LEFT_ALIGNMENT);
+        playerName.setFont(normalFont);
+
+        playerHP = new JLabel(playerHPS);
+        playerHP.setAlignmentX(Component.LEFT_ALIGNMENT);
+        playerHP.setFont(normalFont);
+
+        playerAttack = new JLabel(playerAttackS);
+        playerAttack.setAlignmentX(Component.LEFT_ALIGNMENT);
+        playerAttack.setFont(normalFont);
+
+        playerDefense = new JLabel(playerDefenseS);
+        playerDefense.setAlignmentX(Component.LEFT_ALIGNMENT);
+        playerDefense.setFont(normalFont);
+
+        lolaRemedios = new JLabel(lolaRemediosS);
+        lolaRemedios.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lolaRemedios.setFont(normalFont);
+
+        playerStats = new JPanel();
+        playerStats.setLayout(new BoxLayout(playerStats, BoxLayout.Y_AXIS));
+        playerStats.setBounds(40, 30, 200, 200);
+        playerStats.setBackground(Color.pink);
+        playerStats.setOpaque(true);
+
+        playerStats.add(playerName);
+        playerStats.add(playerHP);
+        playerStats.add(playerAttack);
+        playerStats.add(playerDefense);
+        playerStats.add(lolaRemedios);
+
+        screen.add(playerStats, Integer.valueOf(1));
+
+        con.add(screen);
+        screen.setVisible(true);
         encounterCounter++;
     }
 
-    public void firstEncounter() {
-
+    public void attack() {
+        System.out.println("Attack");
     }
 
-    public static class BattleHandler implements ActionListener {
+    public void defend() {
+        System.out.println("Defend");
+    }
+
+    public void potion() {
+        System.out.println("Potion");
+    }
+
+    public void retreat() {
+        System.out.println("Retreat");
+    }
+
+    public class BattleHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String action = e.getActionCommand();
 
             switch (action) {
                 case "attack": {
-                    System.out.println("Attack pressed.");
+                    attack();
                     break;
                 }
                 case "defend": {
-                    System.out.println("Defend pressed.");
+                    defend();
                     break;
                 }
                 case "potion": {
-                    System.out.println("Potion pressed.");
+                    potion();
                     break;
                 }
                 case "retreat": {
-                    System.out.println("Retreat pressed.");
+                    retreat();
                     break;
                 }
             }
         }
     }
-
 }
