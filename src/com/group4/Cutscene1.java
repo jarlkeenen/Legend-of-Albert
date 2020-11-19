@@ -7,23 +7,19 @@ import java.awt.event.ActionListener;
 
 public class Cutscene1 {
 
-    JFrame window;
-    Container con;
-
     JPanel cutscene,textPanel,nextButtonPanel;
     JLabel cutsceneImageLabel;
     JTextArea textArea;
     JButton nextButton;
-    Font textFont = new Font("Arial", Font.PLAIN, 16);
+    Font textFont = new Font("Times New Roman", Font.PLAIN, 18);
     String position;
-    private String text = "For centuries, the city of Victorias has been protected by the soul of Albert, an ancient soul passed down by its user which has now become a title for those deemed worthy to inherit it, beset by dark forces unleashed long ago by the banished Dark Lord. Where this story starts, the city is protected by Albert the protector, a brave and selfless hero embued by the soul that puts the lives and protection of the people first but though this is your story, you are not Albert the Protector, you are just an ordinary citizen, and this is your legend.";
     int i=0,soundCue=0;
-
+    private String text;
     Player player;
 
     SoundEffect se= new SoundEffect();
 
-    public Cutscene1(Player player, String text, String imgPath, JFrame w, Container c) {
+    public Cutscene1(String text, String imgPath, JFrame window, Container con) {
 
         /*
         this.window = window;
@@ -39,7 +35,7 @@ public class Cutscene1 {
         window.setResizable(false);
         window.setLocationRelativeTo(null);
         con=window.getContentPane();
-
+        this.text=text;
         position = "cutscene1";
         ImageIcon cutsceneImage = new ImageIcon(imgPath);
         cutscene = new JPanel();
@@ -65,6 +61,7 @@ public class Cutscene1 {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
+        //textArea.setOpaque(false);
         textPanel.add(textArea);
 
         nextButton=new JButton();
@@ -74,7 +71,7 @@ public class Cutscene1 {
         nextButton.setFocusPainted(false);
         nextButton.setContentAreaFilled(false);
         nextButton.setOpaque(false);
-        nextButton.addActionListener(evt -> skip());
+        nextButton.addActionListener(null);
         nextButton.setActionCommand("next1");
 
         nextButtonPanel= new JPanel();
@@ -85,10 +82,10 @@ public class Cutscene1 {
 
         prepareText();
 
-        this.con.add(cutscene);
-        this.con.add(textPanel);
-        this.con.add(nextButtonPanel);
-        this.window.setVisible(true);
+        con.add(cutscene);
+        con.add(textPanel);
+        con.add(nextButtonPanel);
+        window.setVisible(true);
 
     }
 
@@ -130,8 +127,11 @@ public class Cutscene1 {
         i=0;
     }
 
-    public void skip() {
+
+   /* public void skip() {
         textTimer.stop();
         new tutorialBattle(player, window, con);
     }
+
+    */
 }

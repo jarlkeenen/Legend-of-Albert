@@ -725,7 +725,7 @@ public class Window extends Canvas {
                                     Somb.setVisible(false);
                                     Omecb.setVisible(false);
                                     Createb.setVisible(false);
-                                    new Cutscene1(player ,"", ".//resources//images//Cutscene.png", window, con);
+                                    //new Cutscene1(player ,"", ".//resources//images//Cutscene.png", window, con);
                                     System.out.println("yes");
                                 }
                                 break;
