@@ -685,25 +685,25 @@ public class Window extends Canvas {
                                 backImage.setIcon(new ImageIcon(".//resources//images//Pescadorian.png"));
                                 racechange = true;
                                 prace = "Pescadorian";
-                                phealth = 60;
-                                pattack = 10;
-                                pdefense = 10;
+                                phealth = 260;
+                                pattack = 110;
+                                pdefense = 90;
                                 break;
                             case "Som":
                                 backImage.setIcon(new ImageIcon(".//resources//images//Somanian.png"));
                                 racechange = true;
                                 prace = "Somanian";
-                                phealth = 50;
-                                pattack = 20;
-                                pdefense = 10;
+                                phealth = 250;
+                                pattack = 120;
+                                pdefense = 90;
                                 break;
                             case "Ome":
                                 backImage.setIcon(new ImageIcon(".//resources//images//Omecillian.png"));
                                 racechange = true;
                                 prace = "Omecillian";
-                                phealth = 50;
-                                pattack = 10;
-                                pdefense = 20;
+                                phealth = 250;
+                                pattack = 110;
+                                pdefense = 100;
                                 break;
                             case "Create":
                                 pname = inputF.getText();
