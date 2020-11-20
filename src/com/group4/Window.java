@@ -137,7 +137,13 @@ public class Window extends Canvas {
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
 		
-        startButton.addActionListener(evt -> mainMenu()); // CHANGE BACK TO MAINMENU AFTER FINISHING RANDOM ENCOUNTER CODE
+        startButton.addActionListener(evt -> {
+            try {
+                templeTest();
+            } catch (IOException | FontFormatException e) {
+                e.printStackTrace();
+            }
+        }); // CHANGE BACK TO MAINMENU AFTER FINISHING RANDOM ENCOUNTER CODE
         startButton.addActionListener(bHandler);
         startButton.setOpaque(false);
 
@@ -157,7 +163,7 @@ public class Window extends Canvas {
     }
 
     // DELETE AFTER FINISHING RANDOM ENCOUNTER CODE
-    public void templeTest() {
+    public void templeTest() throws IOException, FontFormatException {
         background.setVisible(false);
         startButton.setVisible(false);
         startButton.setEnabled(false);
@@ -581,6 +587,7 @@ public class Window extends Canvas {
         {
             backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
             startButton.setEnabled(true);
+            isTMPlaying = true; // remove after tests
             if (!isTMPlaying) {
                 mu.setFile(TM);
                 mu.play();
