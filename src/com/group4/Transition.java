@@ -81,7 +81,7 @@ class FadeTest {
                                 }
                                 controller = new AnimationController(2000);
 
-                                boolean fadeIn = pane1.getAlpha() < pane2.getAlpha();
+                                boolean fadeIn = pane1.getAlpha() == pane2.getAlpha();
 
                                 controller.add(controller.new AlphaRange(pane1, fadeIn));
                                 controller.add(controller.new AlphaRange(pane2, !fadeIn));
