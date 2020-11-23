@@ -8,6 +8,14 @@ public class Cutscene {
     JFrame window;
     Container con;
     String imgPath;
+    Player player;
+
+    Cutscene(Player player, JFrame window, Container con) {
+        this.player = player;
+        this.window = window;
+        this.con = con;
+    }
+
     public void cutscene1(){
         this.text = "For centuries, the city of Victorias has been protected by the soul of Albert, "
                 +"an ancient soul passed down by its user which has now become a title for those deemed worthy to inherit it,"
@@ -17,7 +25,7 @@ public class Cutscene {
                 +"though this is your story, you are not Albert the Protector, you are just an ordinary citizen, "
                 +"and this is your legend.";
         imgPath=".//resources//images//Cutscene.png";
-        new Cutscene1(text,imgPath,window,con);
+        new Cutscene1(text,imgPath, player, window,con, 1);
     }
 
     public void cutscene2(){
@@ -25,8 +33,8 @@ public class Cutscene {
                 "You rush back to find the people being taken away and in a moment of clarity, you see your mentor, "
                +"Master Jim disappear with the rest.";
         //Due to wrong naming cutscene 3 image is swapped with cutscene 2
-        imgPath=".//resources//images//Cutscene (3).png";
-        new Cutscene1(text,imgPath,window,con);
+        imgPath=".//resources//images//Cutscene (2).png";
+        new Cutscene1(text,imgPath,player, window,con, 2);
     }
     public void cutscene3(){
         text="You sprint towards him but is stopped by a monster. Before he kills you, he speaks of your futility."
@@ -34,8 +42,8 @@ public class Cutscene {
                 +" \"He\" will be resurrected at Mt.Kanlaon and lead his dark legion once again! Die!\' " +
                 " As the his weapon swings to finish you off, Albert the Protector arrives and pushes you away, " +
                 "receiving the blow instead. ";
-        imgPath=".//resources//images//Cutscene (2).png";
-        new Cutscene1(text,imgPath,window,con);
+        imgPath=".//resources//images//Cutscene (3).png";
+        new Cutscene1(text,imgPath,player, window,con, 3);
     }
 
     public void cutscene4(){
@@ -46,22 +54,22 @@ public class Cutscene {
                 "His body vanishes and you are imbued with the soul of Albert, you have become Albert." +
                 " You again face the Monster now as Albert the Savior.";
         imgPath=".//resources//images//Cutscene (4).png";
-        new Cutscene1(text,imgPath,window,con);
+        new Cutscene1(text,imgPath,player, window,con, 4);
     }
     public void beforeFinalBattle(){
         text="You have come in vain, Victorian. The Dark Lord has"
             + "  already been unleashed."
             + "\'-You will now face DEATH!-\'";
         imgPath=".//resources//images//BeforeBossFightCutscene.jpg";
-        new Cutscene1(text,imgPath,window,con);
+        new Cutscene1(text,imgPath,player, window,con, 5);
     }
     public void Ending1(){
         text="With the defeat of the Dark Lord by the hands of the new Albert, "
                 +"Master Jim was again released from his own darkness and returned to Victorias with the Hero to bid "
                 +"farewell and forgiveness to the people as evident that darkness will forever follow him for power. "
                 +"He set off to the Barren waste of the West, never to be heard from again.";
-        imgPath=".//resources//images//Ending (1).jpg";
-        new Cutscene1(text,imgPath,window,con);
+        imgPath=".//resources//images//Ending1.jpg";
+        new Cutscene1(text,imgPath,player, window,con, 6);
     }
     public void Ending2(){
         text="Before leaving, Master Jim and the people of Victorias name the new Albert as "
@@ -69,14 +77,14 @@ public class Cutscene {
                 +"the city expanded and cleansed the nearby territories monsters. "
                 +"All had become well under Albert The Savior but what what the Hero did not know was the secret of the "
                 +"foundation of Victorias.";
-        imgPath=".//resources//images//Ending (2).jpg";
-        new Cutscene1(text,imgPath,window,con);
+        imgPath=".//resources//images//Ending2.jpg";
+        new Cutscene1(text,imgPath,player, window,con, 7);
     }
     public void Ending3(){
         text= "A secret that lies dormant and forgotten underneath the surface and murky depths of Victorias "
                 +"that will once again shake the stability of the world. ";
-        imgPath=".//resources//images//Ending (3).jpg";
-        new Cutscene1(text,imgPath,window,con);
+        imgPath=".//resources//images//Ending3.jpg";
+        new Cutscene1(text,imgPath,player, window,con, 8);
     }
 
 }

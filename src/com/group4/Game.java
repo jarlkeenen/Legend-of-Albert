@@ -33,5 +33,4 @@ public class Game extends Canvas{
     public static void main(String[] args) throws IOException {
         new Game();
     }
-
 }

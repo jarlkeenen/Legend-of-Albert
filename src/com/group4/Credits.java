@@ -27,7 +27,7 @@ public class Credits {
 
         frame.add(panel);
     }
-    public static void main(String[] args) {
+    public Credits() {
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -36,7 +36,8 @@ public class Credits {
                 JFrame frame = new JFrame();
                 frame.add(new ImagePanel());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1280 ,720);
+                frame.setSize(1296 ,759);
+                frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
         });
@@ -50,7 +51,7 @@ class ImagePanel extends JPanel {
     Image image;
 
     public ImagePanel() {
-        image = Toolkit.getDefaultToolkit().createImage("D:\\LOA credits1.gif");
+        image = Toolkit.getDefaultToolkit().createImage(".//resources//images//LOA Credits1.gif");
 
     }
 

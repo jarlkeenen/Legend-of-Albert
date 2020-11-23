@@ -10,6 +10,8 @@ import java.io.IOException;
 public class TempleEncounter {
     private final static String nl = "\n";
 
+    Cutscene CH;
+
     JFrame window;
     Container con;
     Dimension conSize;
@@ -50,6 +52,7 @@ public class TempleEncounter {
     Font statFont;
     Font labelFont;
     Font combFont;
+    SoundEffect se = new SoundEffect();
 
     BattleHandler battleHandler = new BattleHandler();
 
@@ -71,34 +74,21 @@ public class TempleEncounter {
         conSize = new Dimension(con.getWidth(), con.getHeight());
         this.area = area.toUpperCase();
 
-        playerNameI = player.getPlayerName();
-        playerMaxHPI = player.getPlayerMaxHealth();
-        playerHPI = player.getPlayerHealth();
-        playerAttackI = player.getPlayerAttack();
-        playerDefenseI = player.getPlayerDefense();
-        lolaRemediosI = player.getLolaRemedios();
-
-        // Sample Stats. Changes depending on enemy.
-        /*
-        ENEMY BASE STATS:
-        MaxHP = 100
-        Attack = 105
-        Defense = 90
-         */
-        enemyNameI = "Babadook";
-        enemyMaxHPI = 200;
-        enemyHPI = enemyMaxHPI;
-        enemyAttackI = 105;
-        enemyDefenseI = 90;
+        playerNameI = this.player.getPlayerName();
+        playerMaxHPI = this.player.getPlayerMaxHealth();
+        playerHPI = this.player.getPlayerHealth();
+        playerAttackI = this.player.getPlayerAttack();
+        playerDefenseI = this.player.getPlayerDefense();
+        lolaRemediosI = this.player.getLolaRemedios();
 
         playerHPS = String.valueOf(playerHPI);
         playerAttackS = String.valueOf(playerAttackI);
         playerDefenseS = String.valueOf(playerDefenseI);
         lolaRemediosS = String.valueOf(lolaRemediosI);
 
-        enemyHPS = String.valueOf(enemyHPI);
-        enemyAttackS = String.valueOf(enemyAttackI);
-        enemyDefenseS = String.valueOf(enemyDefenseI);
+        randomEnemyGenerator();
+
+        CH = new Cutscene(this.player, this.window, this.con);
 
         battleScreen();
     }
@@ -107,23 +97,17 @@ public class TempleEncounter {
         screen = new JLayeredPane();
         screen.setSize(conSize);
 
-        if (encounterCounter != 3) {
-            do {
-                randomEnemy = (int)(Math.random() * (4 - 1 + 1)) + 1;
-            } while (randomEnemy == randomEnemyChecker[0] || randomEnemy == randomEnemyChecker[1]);
-            if (encounterCounter <= 1)
-                randomEnemyChecker[encounterCounter] = randomEnemy;
-        }
+        if (!area.equals("BOSS"))
+            backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
         else
-            randomEnemy = 5;
-        backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
+            backgroundFilePath = ".//resources//images//Kanlaon.png";
+
         backImage = new JLabel(new ImageIcon(backgroundFilePath));
 
         background = new JPanel(new BorderLayout());
         background.setSize(conSize);
         background.add(backImage);
         screen.add(background, Integer.valueOf(0));
-
 
         attackButton = new JButton();
         attackButton.addActionListener(battleHandler);
@@ -276,7 +260,7 @@ public class TempleEncounter {
 
         enemyStats = new JPanel();
         enemyStats.setLayout(new BoxLayout(enemyStats, BoxLayout.Y_AXIS));
-        enemyStats.setBounds(1040, 100, 200, 260);
+        enemyStats.setBounds(1020, 100, 220, 260);
         enemyStats.setOpaque(false);
 
         enemyStats.add(enemyName);
@@ -312,37 +296,176 @@ public class TempleEncounter {
         con.add(screen);
     }
 
-    public void nextEncounters() {
-        if (encounterCounter != 3) {
+    public void randomEnemyGenerator() {
+        if (encounterCounter < 3) {
             do {
                 randomEnemy = (int)(Math.random() * (4 - 1 + 1)) + 1;
             } while (randomEnemy == randomEnemyChecker[0] || randomEnemy == randomEnemyChecker[1]);
             if (encounterCounter <= 1)
                 randomEnemyChecker[encounterCounter] = randomEnemy;
         }
-        else
+        else if (encounterCounter == 3)
             randomEnemy = 5;
-        backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
-        backImage.setIcon(new ImageIcon(backgroundFilePath));
 
-        enemyNameI = "Pennywise";
-        enemyMaxHPI = 200;
+        if (area.equals("BOSS"))
+            randomEnemy = 6;
+
+        // Sample Stats. Changes depending on enemy.
+        /*
+        ENEMY BASE STATS:
+        MaxHP = 80
+        Attack = 105
+        Defense = 90
+         */
+        enemyMaxHPI = 80;
         enemyHPI = enemyMaxHPI;
         enemyAttackI = 105;
         enemyDefenseI = 90;
 
-        updateStats();
+        switch (randomEnemy) {
+            case 1: {
+                switch (area) {
+                    case "RUINS":
+                        enemyNameI = "Lamok";
+                        break;
+                    case "FOREST":
+                        enemyNameI = "Murcia Bat";
+                        break;
+                    case "SHORE":
+                        enemyNameI = "Crab of Rave";
+                        break;
+                }
+                enemyAttackI += 5;
+                break;
+            }
+            case 2: {
+                switch (area) {
+                    case "RUINS":
+                        enemyNameI = "Ghoul";
+                        break;
+                    case "FOREST":
+                        enemyNameI = "Mutant";
+                        break;
+                    case "SHORE":
+                        enemyNameI = "Shark Captain";
+                        break;
+                }
+                enemyDefenseI += 10;
+                break;
+            }
+            case 3: {
+                switch (area) {
+                    case "RUINS":
+                        enemyNameI = "Mangrove Tree";
+                        break;
+                    case "FOREST":
+                        enemyNameI = "Mutant Fiend";
+                        break;
+                    case "SHORE":
+                        enemyNameI = "Sea Spawn";
+                        break;
+                }
+                enemyMaxHPI += 10;
+                enemyHPI = enemyMaxHPI;
+                break;
+            }
+            case 4: {
+                switch (area) {
+                    case "RUINS":
+                        enemyNameI = "Reaper";
+                        break;
+                    case "FOREST":
+                        enemyNameI = "Abomination";
+                        break;
+                    case "SHORE":
+                        enemyNameI = "Murloc";
+                        break;
+                }
+                enemyMaxHPI += 10;
+                enemyHPI = enemyMaxHPI;
+                enemyAttackI += 2;
+                enemyDefenseI += 5;
+                break;
+            }
+            case 5: {
+                switch (area) {
+                    case "RUINS":
+                        enemyNameI = "Daemon";
+                        break;
+                    case "FOREST":
+                        enemyNameI = "Zhod";
+                        break;
+                    case "SHORE":
+                        enemyNameI = "Poseidon";
+                        break;
+                }
+                enemyMaxHPI += 20;
+                enemyHPI = enemyMaxHPI;
+                enemyAttackI += 5;
+                enemyDefenseI += 10;
+                break;
+            }
+            case 6: {
+                enemyNameI = "The Dark Lord";
+                enemyMaxHPI += 30;
+                enemyHPI = enemyMaxHPI;
+                enemyAttackI += 10;
+                enemyDefenseI += 15;
+            }
+        }
+
+        enemyHPS = String.valueOf(enemyHPI);
+        enemyAttackS = String.valueOf(enemyAttackI);
+        enemyDefenseS = String.valueOf(enemyDefenseI);
     }
 
-    public void attack() throws IOException, FontFormatException {
+    public void attack() {
+        String sound = ".//resources//audio//character attack music.wav";
+        se.setURL(sound);
+        se.play();
+
+        sound = ".//resources//audio//sword 3.wav";
+        se.setURL(sound);
+        se.play();
+
         int playerDamage = playerAttackI - enemyDefenseI;
         enemyHPI -= playerDamage;
         if (enemyHPI <= 0) {
             enemyHPI = 0;
             combatLog.append(playerNameI + " has killed " + enemyNameI + "." + nl);
-            updateStats();
             encounterCounter++;
-            nextEncounters();
+            if (encounterCounter < 4) {
+                randomEnemyGenerator();
+                backgroundFilePath = ".//resources//images//Temples//" + area + randomEnemy + ".png";
+                backImage.setIcon(new ImageIcon(backgroundFilePath));
+                updateStats();
+            }
+            else if (encounterCounter == 4) {
+                switch (area) {
+                    case "RUINS": {
+                        combatLog.append(playerNameI + " conquered the Ruins!" + nl);
+                        CH.beforeFinalBattle();
+                        break;
+                    }
+                    case "FOREST": {
+                        combatLog.append(playerNameI + " conquered Don Salvador Benedicto Forest!" + nl);
+                        CH.beforeFinalBattle();
+                        break;
+                    }
+                    case "SHORE": {
+                        combatLog.append(playerNameI + " conquered Cadiz Shore!" + nl);
+                        CH.beforeFinalBattle();
+                        break;
+                    }
+                }
+
+                updateStats();
+            }
+
+            if (area.equals("BOSS")) {
+                combatLog.append(playerNameI + " has defeated the Dark Lord!" + nl);
+                CH.Ending1();
+            }
 
             return;
         }
@@ -354,6 +477,10 @@ public class TempleEncounter {
     }
 
     public void defend() {
+        String sound=".//resources//audio//sword1.wav";
+        se.setURL(sound);
+        se.play();
+
         int defenseIncrease = 10;
         playerDefenseI += defenseIncrease;
         combatLog.append(playerNameI + " increased his defense by " + defenseIncrease + " for one turn." + nl);
@@ -366,6 +493,10 @@ public class TempleEncounter {
     }
 
     public void potion() {
+        String sound=".//resources//audio//heal 1.wav";
+        se.setURL(sound);
+        se.play();
+
         if (lolaRemediosI > 0) {
             if (playerHPI == playerMaxHPI) {
                 combatLog.append(playerNameI + " tried to drink a sachet of Lola Remedios but he was already at full HP." + nl);
@@ -439,6 +570,7 @@ public class TempleEncounter {
         playerDefense.setText(playerDefenseS);
         lolaRemedios.setText(lolaRemediosS);
 
+        enemyName.setText(enemyNameI);
         enemyHP.setText(enemyHPS);
         enemyAttack.setText(enemyAttackS);
         enemyDefense.setText(enemyDefenseS);
@@ -450,11 +582,7 @@ public class TempleEncounter {
 
             switch (action) {
                 case "attack": {
-                    try {
-                        attack();
-                    } catch (IOException | FontFormatException exception) {
-                        exception.printStackTrace();
-                    }
+                    attack();
                     break;
                 }
                 case "defend": {

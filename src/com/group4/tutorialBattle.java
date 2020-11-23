@@ -9,6 +9,8 @@ public class tutorialBattle {
     JFrame window;
     Container con;
 
+    Cutscene CH;
+
     //Panel
     JPanel background,userPanel1,secondUserPanel,hpBar,enemyHpBar,textAreaPanel,healPanel,retreatPanel;
     //Label
@@ -45,6 +47,8 @@ public class tutorialBattle {
 
     ActionHandler action = new ActionHandler();
 
+    Player player;
+
     public tutorialBattle(Player player, JFrame w, Container c){
 
         /*
@@ -62,6 +66,8 @@ public class tutorialBattle {
         window.setLocationRelativeTo(null);
         con=window.getContentPane();
 
+        this.player = player;
+
         background = new JPanel();
         background.setBounds(0,0,1280,720);
 
@@ -76,6 +82,8 @@ public class tutorialBattle {
 
         con.add(background);
         window.setVisible(true);
+
+        CH = new Cutscene(this.player, this.window, this.con);
     }
     public void playerHPBAR(int maxhp){
 
@@ -344,7 +352,9 @@ public class tutorialBattle {
                     potionInstructions();
                     break;
                 case "retreat":
-                    System.out.println("Success");
+                    timer.stop();
+                    se.stop();
+                    CH.cutscene2();
                     break;
             }
         }

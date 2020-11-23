@@ -137,13 +137,7 @@ public class Window extends Canvas {
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
 		
-        startButton.addActionListener(evt -> {
-            try {
-                templeTest();
-            } catch (IOException | FontFormatException e) {
-                e.printStackTrace();
-            }
-        }); // CHANGE BACK TO MAINMENU AFTER FINISHING RANDOM ENCOUNTER CODE
+        startButton.addActionListener(evt -> mainMenu());
         startButton.addActionListener(bHandler);
         startButton.setOpaque(false);
 
@@ -160,15 +154,6 @@ public class Window extends Canvas {
 
 
         window.setVisible(true);
-    }
-
-    // DELETE AFTER FINISHING RANDOM ENCOUNTER CODE
-    public void templeTest() throws IOException, FontFormatException {
-        background.setVisible(false);
-        startButton.setVisible(false);
-        startButton.setEnabled(false);
-        Player player = new Player(1);
-        new TempleEncounter(window, con, player, "forest");
     }
 
     public void mainMenu() {
@@ -587,7 +572,6 @@ public class Window extends Canvas {
         {
             backImage.setIcon(new ImageIcon(".//resources//images//Title.png"));
             startButton.setEnabled(true);
-            isTMPlaying = true; // remove after tests
             if (!isTMPlaying) {
                 mu.setFile(TM);
                 mu.play();
@@ -732,8 +716,8 @@ public class Window extends Canvas {
                                     Somb.setVisible(false);
                                     Omecb.setVisible(false);
                                     Createb.setVisible(false);
-                                    //new Cutscene1(player ,"", ".//resources//images//Cutscene.png", window, con);
-                                    System.out.println("yes");
+                                    Cutscene cutsceneHandler = new Cutscene(player, window, con);
+                                    cutsceneHandler.cutscene1();
                                 }
                                 break;
                         }

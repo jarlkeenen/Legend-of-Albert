@@ -30,7 +30,7 @@ public class NewPlayer extends SaveFile implements Save{
         setLegSword(false);
         setLegArmor(false);
         setLegPants(false);
-        setLolaRemedios(3);
+        setLolaRemedios(5);
         setTempleKey(0);
 
         writeToPlayerFile(saveNum);
